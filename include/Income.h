@@ -6,5 +6,5 @@ struct Income {
 	Date d;
 	int amount;
 	Category source;
-	string des;
+	string dessssss;
 };
