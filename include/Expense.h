@@ -2,7 +2,7 @@
 #include"Date.h"
 #include"Category.h"
 
-struct Income {
+struct Expense {
 	Date d;
 	int amount;
 	Category category;
