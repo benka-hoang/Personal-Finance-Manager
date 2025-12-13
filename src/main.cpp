@@ -5,11 +5,14 @@
 #include"../include/Income.h"
 #include"../include/Expense.h"
 #include"../include/Wallet.h"
+#include"../include/ListWallet.h"
 
 using namespace std;
 
 int main() {
-	int size_wallet = 0;
-	Wallet* list_wallet;
+	ListWallet list_wallet;
+	list_wallet.Init();
+	int id = 2;
+	list_wallet.wallet[id].Add_Source("Luong");
 	return 0;
 }
