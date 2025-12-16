@@ -9,12 +9,9 @@
 
 using namespace std;
 
-int main() {
+int ExampleData() {
 	ListWallet list_wallet;
 	list_wallet.Init();
-	list_wallet.Add_Wallet("momo");
-	cout<<list_wallet.wallet[0].name;
-	
 
 	// Example data
 	Wallet momo;
