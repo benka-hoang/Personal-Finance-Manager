@@ -6,5 +6,5 @@ struct ListWallet{
 	Wallet* wallet;
 
 	void Init();
-	void Add_Wallet();
+	void Add_Wallet(string name);
 };
