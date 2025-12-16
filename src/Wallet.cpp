@@ -20,6 +20,7 @@ void Wallet::Add_Source(string name_source) {
 	{
 		inc_source[size_source].id=size_source;
 		inc_source[size_source].name=name_source;
+		size_source++;
 	}
 	else
 	{
@@ -33,6 +34,7 @@ void Wallet::Add_Source(string name_source) {
 		max_size_source=max_size_source+extra_space;
 		inc_source[size_inc].id=size_inc;
 		inc_source[size_inc].name=name_source;
+		size_source++;
 	}
 	return;
 }
@@ -42,6 +44,7 @@ void Wallet::Add_Category(string name_category) {
 	{
 		exp_category[size_category].id=size_category;
 		exp_category[size_category].name=name_category;
+		size_category++;
 	}
 	else
 	{
@@ -55,6 +58,7 @@ void Wallet::Add_Category(string name_category) {
 		max_size_category=max_size_category+extra_space;
 		exp_category[size_category].id=size_category;
 		exp_category[size_category].name=name_category;
+		size_category++;
 	}
 	return;
 }

@@ -8,12 +8,12 @@ void ListWallet::Init() {
 }
 
 const int extra_space = 20;
-void ListWallet::Add_Wallet(string name) {
+void ListWallet::Add_Wallet(string name_wallet) {
 	if(size<max_size)
 	{
 		wallet[size].Init();
 		wallet[size].id=size;
-		wallet[size].name=name;
+		wallet[size].name=name_wallet;
 		size++;
 	}
 	else
@@ -28,7 +28,7 @@ void ListWallet::Add_Wallet(string name) {
 		max_size = max_size + extra_space;
 		wallet[size].Init();
 		wallet[size].id=size;
-		wallet[size].name=name;
+		wallet[size].name=name_wallet;
 		size++;
 	}
 	return;
