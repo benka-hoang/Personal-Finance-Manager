@@ -9,7 +9,7 @@
 
 using namespace std;
 
-int main() {
+int ExampleData() {
 	ListWallet list_wallet;
 	list_wallet.Init();
 
