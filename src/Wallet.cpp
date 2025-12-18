@@ -10,6 +10,8 @@ void Wallet::Init(){
 	list_exp = new Expense[max_size_exp];
 	inc_source = new Category[max_size_inc];
 	exp_category = new Category[max_size_category];
+	Add_Source("Others");
+	Add_Category("Others");
 	return;
 }
 
