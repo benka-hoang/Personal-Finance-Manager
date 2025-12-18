@@ -2,6 +2,7 @@
 #include <string>
 #include <chrono>
 #include <ctime>
+#include <algorithm>
 
 void Write(ofstream& out, int num, int t) {
 	int c[10]; int n = 0;
@@ -64,6 +65,17 @@ Date IdtoDate(int id) {
 	}
 	d.day = id;
 	return d;
+}
+
+// 
+Date ConvertDate(Date* d) {
+	int mdays[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	Date new_date = *d;
+	int day_this_month = mdays[d->month - 1];
+	if (isLeap(d->year) && d->month == 2)
+		day_this_month++;
+	new_date.day = min(d->day, day_this_month);
+	return new_date;
 }
 
 void outputDateWithFormat(ofstream& out, Date *d, string s) {

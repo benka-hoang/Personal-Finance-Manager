@@ -42,6 +42,8 @@ void outputDateWithFormat(ofstream& out, Date *d, string s);
 int DatetoId(Date *d);
 Date IdtoDate(int id);
 
+Date ConvertDate(Date *d);
+
 int Compare(Date *a, Date *b);
 void Tomorrow(Date *d);
 void Yesterday(Date *d);
