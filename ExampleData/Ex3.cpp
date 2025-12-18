@@ -10,7 +10,7 @@
 
 using namespace std;
 
-int main() {
+int Ex3() {
 	ListWallet list_wallet;
 	list_wallet.Init();
 	list_wallet.Add_Wallet("momo");
@@ -59,7 +59,7 @@ int main() {
 	Category category3 = { 1, "Poker" };
 	Recurring Re3 = Info_to_Recurring(name3, start_date3, end_date3, type3, amount3, category3);
 	list_wallet.wallet[0].Add_Recurring(Re3);
-	
+
 	list_wallet.wallet[0].Display_Category();
 	list_wallet.wallet[0].Display_Expense();
 
