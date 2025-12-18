@@ -199,14 +199,14 @@ void Wallet::Add_Recurring(Recurring Recurr)
 	}
 	while(DatetoId(&temp)<=DatetoId(&Recurr.end_date))
 	{
-		temp=ConvertDate(&temp);
+		Date cur=ConvertDate(&temp);
 		if(Recurr.type==1)
 		{
-			Add_Income(temp, Recurr.amount, Recurr.category, "Recurring" + Recurr.name);
+			Add_Income(cur, Recurr.amount, Recurr.category, "Recurring" + Recurr.name);
 		}
 		else if(Recurr.type==-1)
 		{
-			Add_Expense(temp, Recurr.amount, Recurr.category, "Recurring" + Recurr.name);
+			Add_Expense(cur, Recurr.amount, Recurr.category, "Recurring" + Recurr.name);
 		}
 		temp.month++;
 		if(temp.month==13) 
