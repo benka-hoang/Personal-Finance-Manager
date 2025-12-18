@@ -4,6 +4,7 @@ void ListWallet::Init() {
 	size = 0;
 	max_size = 10;
 	wallet = new Wallet[max_size];
+	Add_Wallet("Others");
 	return;
 }
 
