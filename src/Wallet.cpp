@@ -86,9 +86,28 @@ void Wallet::Add_Income(Date d, int amount, Category source, string des) {
 	return;
 }
 
-void Wallet::Delete_Income(Category source)
+void Wallet::Delete_Income_Source(string name)
 {
-	
+	for(int i=0;i<size_inc;++i)
+	{
+		if(list_inc[i].source.name==name) list_inc[i].source.name="Others";
+	}
+	for(int i=0;i<size_source;++i)
+	{
+		if(inc_source[i].name==name) 
+		{
+			for(int j=i;j<size_source-1;++j) inc_source[j]=inc_source[j+1];
+		}
+	}
+	size_source--;
+}
+
+void Wallet::Edit_Income_Source(string name_inc, string name_edit)
+{
+	for(int i=0;i<size_source;++i)
+	{
+		if(inc_source[i].name==name_inc) inc_source[i].name=name_edit;
+	}
 }
 
 void Wallet::Add_Expense(Date d, int amount, Category category, string des) {
@@ -112,13 +131,32 @@ void Wallet::Add_Expense(Date d, int amount, Category category, string des) {
 	return;
 }
 
-void Wallet::Delete_Expense(Category category)
+void Wallet::Delete_Expense_Category(string name)
 {
+	for(int i=0;i<size_exp;++i)
+	{
+		if(list_exp[i].category.name==name) list_exp[i].category.name="Others";
+	}
+	for(int i=0;i<size_category;++i)
+	{
+		if(exp_category[i].name==name)
+		{
+			for(int j=i;j<size_category-1;++j) exp_category[j]=exp_category[j+1];
+		}
+	}
+	size_category--;
+}
 
+void Wallet::Edit_Expense_Category(string name_category, string name_edit)
+{
+	for(int i=0;i<size_category;++i)
+	{
+		if(exp_category[i].name==name_category) exp_category[i].name=name_edit;
+	}
 }
 
 const Date limit_date={31, 12, 9999};
-void Wallet::Add_Recurring(string name_recur, Date start_date, Date end_date, int type, int amount, Category category, string des)
+void Wallet::Add_Recurring(string name_recur, Date start_date, Date end_date, int type, int amount, Category category)
 {
 	Date temp = start_date;
 	if(end_date.day==0&&end_date.month==0&&end_date.year==0)
@@ -130,11 +168,11 @@ void Wallet::Add_Recurring(string name_recur, Date start_date, Date end_date, in
 		temp=ConvertDate(&temp);
 		if(type==1)
 		{
-			Add_Income(temp, amount, category, des);
+			Add_Income(temp, amount, category, "recurring "+ name_recur);
 		}
 		else if(type==-1)
 		{
-			Add_Expense(temp, amount, category, des);
+			Add_Expense(temp, amount, category, "recurring "+ name_recur);
 		}
 		temp.month++;
 		if(temp.month==13) 
