@@ -35,4 +35,17 @@ struct Wallet {
 	void Add_Recurring(Recurring recur);
 	void Auto_Update(); //update all wallets
 
+	int Total_Income(Date start_date, Date end_date);
+	int Total_Expense(Date start_date, Date end_date);
+	int Total_Balance(Date start_date, Date end_date);
+
+	int Total_Income_Current_Month();
+	int Total_Expense_Current_Month();
+	int Total_Balance_Current_Month();
+
+	int* Annual_Income_Source(int* year);
+	int* Annual_Expense_Category(int* year);
+	int* Annual_Income(int* year);
+	int* Annual_Expense(int* year);
+	int* Annual_Balance(int* year);
 };

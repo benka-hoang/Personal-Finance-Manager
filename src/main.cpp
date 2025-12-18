@@ -60,12 +60,9 @@ int main() {
 	Recurring Re3 = Info_to_Recurring(name3, start_date3, end_date3, type3, amount3, category3);
 	list_wallet.wallet[0].Add_Recurring(Re3);
 	
-	list_wallet.wallet[0].Display_Category();
-	list_wallet.wallet[0].Display_Expense();
+	list_wallet.wallet[0].Edit_Income_Source("Poker", "Kepor");
 
-	list_wallet.wallet[0].Delete_Expense_Category("Food");
-
-	list_wallet.wallet[0].Display_Category();
-	list_wallet.wallet[0].Display_Expense();
+	list_wallet.wallet[0].Display_Source();
+	list_wallet.wallet[0].Display_Income();
 	return 0;
 }
