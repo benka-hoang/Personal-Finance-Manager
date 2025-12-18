@@ -149,6 +149,10 @@ void Wallet::Edit_Income_Source(string name_inc, string name_edit)
 	{
 		if(inc_source[i].name==name_inc) inc_source[i].name=name_edit;
 	}
+	for(int i=0;i<size_inc;++i)
+	{
+		if(list_inc[i].source.name==name_inc) list_inc[i].source.name=name_edit;
+	}
 }
 
 void Wallet::Add_Expense(Date d, int amount, Category category, string des) {
@@ -202,6 +206,10 @@ void Wallet::Edit_Expense_Category(string name_category, string name_edit)
 	for(int i=0;i<size_category;++i)
 	{
 		if(exp_category[i].name==name_category) exp_category[i].name=name_edit;
+	}
+	for(int i=0;i<size_exp;++i)
+	{
+		if(list_exp[i].category.name==name_category) list_exp[i].category.name=name_edit;
 	}
 }
 
