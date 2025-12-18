@@ -84,6 +84,11 @@ void Wallet::Add_Income(Date d, int amount, Category source, string des) {
 	return;
 }
 
+void Wallet::Delete_Income(Category source)
+{
+	
+}
+
 void Wallet::Add_Expense(Date d, int amount, Category category, string des) {
 	balance = balance - amount;
 	Expense exp = Info_to_Expense(d, amount, category, des);
@@ -103,6 +108,11 @@ void Wallet::Add_Expense(Date d, int amount, Category category, string des) {
 	for (int i = size_exp - 1; i >= pos; --i) list_exp[i + 1] = list_exp[i];
 	list_exp[pos] = exp;
 	return;
+}
+
+void Wallet::Delete_Expense(Category category)
+{
+
 }
 
 const Date limit_date={31, 12, 9999};

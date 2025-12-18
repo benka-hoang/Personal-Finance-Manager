@@ -22,7 +22,9 @@ struct Wallet {
 	void Add_Source(string name_source);
 	void Add_Category(string name_category);
 	void Add_Income(Date d, int amount, Category source, string des);
+	void Delete_Income(Category source);
 	void Add_Expense(Date d, int amount, Category category, string des);
+	void Delete_Expense(Category category);
 	void Add_Recurring(string name_recur, Date start_date, Date end_date, int type, int amount, Category category, string des);
 	void Auto_Update(); //update all wallets
 };
