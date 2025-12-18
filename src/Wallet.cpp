@@ -104,3 +104,36 @@ void Wallet::Add_Expense(Date d, int amount, Category category, string des) {
 	list_exp[pos] = exp;
 	return;
 }
+
+const Date limit_date={31, 12, 9999};
+void Wallet::Add_Recurring(string name_recur, Date start_date, Date end_date, int type, int amount, Category category, string des)
+{
+	Date temp = start_date;
+	if(end_date.day==0&&end_date.month==0&&end_date.year==0)
+	{
+		end_date=limit_date;
+	}
+	while(DatetoId(&temp)<=DatetoId(&end_date))
+	{
+		temp=ConvertDate(&temp);
+		if(type==1)
+		{
+			Add_Income(temp, amount, category, des);
+		}
+		else if(type==-1)
+		{
+			Add_Expense(temp, amount, category, des);
+		}
+		temp.month++;
+		if(temp.month==13) 
+		{
+			temp.month=1;
+			temp.year++;
+		}
+	}
+}
+
+void Wallet::Auto_Update()
+{
+	return;
+}
