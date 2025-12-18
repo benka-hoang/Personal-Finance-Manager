@@ -123,13 +123,21 @@ void Wallet::Delete_Income_Source(string name)
 {
 	for(int i=0;i<size_inc;++i)
 	{
-		if(list_inc[i].source.name==name) list_inc[i].source.name="Others";
+		if(list_inc[i].source.name==name) 
+		{
+			list_inc[i].source.name="Others";
+			list_inc[i].source.id=0;
+		}
 	}
 	for(int i=0;i<size_source;++i)
 	{
 		if(inc_source[i].name==name) 
 		{
-			for(int j=i;j<size_source-1;++j) inc_source[j]=inc_source[j+1];
+			for(int j=i;j<size_source-1;++j) 
+			{
+				inc_source[j].name=inc_source[j+1].name;
+				inc_source[j].id=j;
+			}
 		}
 	}
 	size_source--;
@@ -169,13 +177,21 @@ void Wallet::Delete_Expense_Category(string name)
 {
 	for(int i=0;i<size_exp;++i)
 	{
-		if(list_exp[i].category.name==name) list_exp[i].category.name="Others";
+		if(list_exp[i].category.name==name) 
+		{
+			list_exp[i].category.name="Others";
+			list_exp[i].category.id=0;
+		}
 	}
 	for(int i=0;i<size_category;++i)
 	{
 		if(exp_category[i].name==name)
 		{
-			for(int j=i;j<size_category-1;++j) exp_category[j]=exp_category[j+1];
+			for(int j=i;j<size_category-1;++j) 
+			{
+				exp_category[j].name=exp_category[j+1].name;
+				exp_category[j].id=j;
+			}
 		}
 	}
 	size_category--;
