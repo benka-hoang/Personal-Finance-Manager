@@ -1,5 +1,37 @@
 #include"../include/Wallet.h"
 
+void Wallet::Display_Income(){
+	cout << "List of Income :\n";
+	for (int i = 0; i < size_inc; ++i) {
+		cout << i << ". "; list_inc[i].Display();
+	}
+	return;
+}
+
+void Wallet::Display_Expense(){
+	cout << "List of Expense :\n";
+	for (int i = 0; i < size_exp; ++i) {
+		cout << i << ". "; list_exp[i].Display();
+	}
+	return;
+}
+
+void Wallet::Display_Source(){
+	cout << "List of Source : \n";
+	for (int i = 0; i < size_source; ++i) {
+		cout << "     "; cout << i << ". "; inc_source[i].Display();
+	}
+	return;
+}
+
+void Wallet::Display_Category(){
+	cout << "List of Category : \n";
+	for (int i = 0; i < size_category; ++i) {
+		cout << "     "; cout << i << ". "; exp_category[i].Display();
+	}
+	return;
+}
+
 void Wallet::Init(){
 	id = 0;
 	name = "";
@@ -77,12 +109,13 @@ void Wallet::Add_Income(Date d, int amount, Category source, string des) {
 		max_size_inc = max_size_inc + extra_space;
 	}
 	int id = DatetoId(&d); int pos = size_inc;
-	for (int i = 0; i < size_inc; ++i) if (DatetoId(&inc.d) >= id) {
+	for (int i = 0; i < size_inc; ++i) if (DatetoId(&list_inc[i].d) >= id) {
 		pos = i;
 		break;
 	}
 	for (int i = size_inc - 1; i >= pos; --i) list_inc[i + 1] = list_inc[i];
 	list_inc[pos] = inc;
+	++size_inc;
 	return;
 }
 
@@ -98,33 +131,34 @@ void Wallet::Add_Expense(Date d, int amount, Category category, string des) {
 		max_size_exp = max_size_exp + extra_space;
 	}
 	int id = DatetoId(&d); int pos = size_exp;
-	for (int i = 0; i < size_exp; ++i) if (DatetoId(&exp.d) >= id) {
+	for (int i = 0; i < size_exp; ++i) if (DatetoId(&list_exp[i].d) >= id) {
 		pos = i;
 		break;
 	}
 	for (int i = size_exp - 1; i >= pos; --i) list_exp[i + 1] = list_exp[i];
 	list_exp[pos] = exp;
+	++size_exp;
 	return;
 }
 
 const Date limit_date={31, 12, 9999};
-void Wallet::Add_Recurring(string name_recur, Date start_date, Date end_date, int type, int amount, Category category, string des)
+void Wallet::Add_Recurring(Recurring Recurr)
 {
-	Date temp = start_date;
-	if(end_date.day==0&&end_date.month==0&&end_date.year==0)
+	Date temp = Recurr.start_date;
+	if(Recurr.end_date.day==0&& Recurr.end_date.month==0&& Recurr.end_date.year==0)
 	{
-		end_date=limit_date;
+		Recurr.end_date=limit_date;
 	}
-	while(DatetoId(&temp)<=DatetoId(&end_date))
+	while(DatetoId(&temp)<=DatetoId(&Recurr.end_date))
 	{
 		temp=ConvertDate(&temp);
-		if(type==1)
+		if(Recurr.type==1)
 		{
-			Add_Income(temp, amount, category, des);
+			Add_Income(temp, Recurr.amount, Recurr.category, "Recurring" + Recurr.name);
 		}
-		else if(type==-1)
+		else if(Recurr.type==-1)
 		{
-			Add_Expense(temp, amount, category, des);
+			Add_Expense(temp, Recurr.amount, Recurr.category, "Recurring" + Recurr.name);
 		}
 		temp.month++;
 		if(temp.month==13) 

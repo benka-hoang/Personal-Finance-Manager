@@ -3,6 +3,7 @@
 #include"Date.h"
 #include"Income.h"
 #include"Expense.h"
+#include"Recurring.h"
 
 struct Wallet {
 	int id;
@@ -17,12 +18,17 @@ struct Wallet {
 	Category* inc_source;
 	Category* exp_category;
 	
+	void Display_Income();
+	void Display_Expense();
+	void Display_Source();
+	void Display_Category();
 
 	void Init();
 	void Add_Source(string name_source);
 	void Add_Category(string name_category);
 	void Add_Income(Date d, int amount, Category source, string des);
 	void Add_Expense(Date d, int amount, Category category, string des);
-	void Add_Recurring(string name_recur, Date start_date, Date end_date, int type, int amount, Category category, string des);
+	void Add_Recurring(Recurring recur);
 	void Auto_Update(); //update all wallets
+
 };
