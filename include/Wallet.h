@@ -42,9 +42,9 @@ struct Wallet {
 	int Total_Expense_Current_Month();
 	int Total_Balance_Current_Month();
 
-	int* Annual_Income_Source(int* year);
-	int* Annual_Expense_Category(int* year);
-	int* Annual_Income(int* year);
-	int* Annual_Expense(int* year);
-	int* Annual_Balance(int* year);
+	int* Annual_Income_Source(int n, int* year);
+	int* Annual_Expense_Category(int n, int* year);
+	int Annual_Income(int n, int* year);
+	int Annual_Expense(int n, int* year);
+	int Annual_Balance(int n, int* year);
 };

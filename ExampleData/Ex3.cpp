@@ -23,8 +23,6 @@ int Ex3() {
 	list_wallet.wallet[0].Add_Category("Food");
 	list_wallet.wallet[0].Add_Category("Poker");
 
-	cout << list_wallet.wallet[0].name << "\n";
-
 	// Income Info
 	Date d1 = { 14, 12, 2025 };
 	int amount1 = 150000;
@@ -38,6 +36,12 @@ int Ex3() {
 	string des11 = "Tien ve";
 	list_wallet.wallet[0].Add_Income(d11, amount11, source11, des11);
 
+	Date d12 = { 10, 12, 2023 };
+	int amount12 = 20000;
+	Category source12 = { 3, "Bussiness" };
+	string des12 = "2023 Do nha";
+	list_wallet.wallet[0].Add_Income(d12, amount12, source12, des12);
+
 	// Expense Info
 	Date d2 = { 14, 12, 2025 };
 	int amount2 = 150000;
@@ -45,10 +49,10 @@ int Ex3() {
 	string des2 = "Tien an";
 	list_wallet.wallet[0].Add_Expense(d2, amount2, category2, des2);
 
-	Date d21 = { 14, 12, 2025 };
+	Date d21 = { 14, 12, 2021 };
 	int amount21 = 150000;
-	Category category21 = { 2, "Food" };
-	string des21 = "Tien an";
+	Category category21 = { 1, "House" };
+	string des21 = "2021 Do nha";
 	list_wallet.wallet[0].Add_Expense(d21, amount21, category21, des21);
 
 	// Recurring Info
@@ -56,16 +60,8 @@ int Ex3() {
 	Date start_date3 = { 31, 7, 2025 };
 	Date end_date3 = { 31, 12, 2025 };
 	int type3 = +1, amount3 = 5000;
-	Category category3 = { 1, "Poker" };
+	Category category3 = { 2, "Poker" };
 	Recurring Re3 = Info_to_Recurring(name3, start_date3, end_date3, type3, amount3, category3);
 	list_wallet.wallet[0].Add_Recurring(Re3);
-
-	list_wallet.wallet[0].Display_Category();
-	list_wallet.wallet[0].Display_Expense();
-
-	list_wallet.wallet[0].Delete_Expense_Category("Food");
-
-	list_wallet.wallet[0].Display_Category();
-	list_wallet.wallet[0].Display_Expense();
 	return 0;
 }

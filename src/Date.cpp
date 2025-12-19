@@ -170,3 +170,9 @@ Date Today() {
 
 	return d;
 }
+
+bool Belong_to_Years(Date * d, int n, int * year){
+	for (int i = 0; i < n; ++i) if (year[i] == d->year)
+		return true;
+	return false;
+}

@@ -59,3 +59,5 @@ string DateofWeek(Date *d);
 bool DateEqual(Date *a, Date *b);
 
 Date Today();
+
+bool Belong_to_Years(Date* d, int n, int* year);
