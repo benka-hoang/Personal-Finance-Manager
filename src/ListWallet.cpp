@@ -34,3 +34,28 @@ void ListWallet::Add_Wallet(string name_wallet) {
 	}
 	return;
 }
+
+int ListWallet::Total_Income(Date start_date, Date end_date)
+{
+	int total_income=0;
+	for(int i=0;i<size;++i)
+	{
+		total_income+=wallet[i].Total_Income(start_date, end_date);
+	}
+	return total_income;
+}
+
+int ListWallet::Total_Expense(Date start_date, Date end_date)
+{
+	int total_expense=0;
+	for(int i=0;i<size;++i)
+	{
+		total_expense+=wallet[i].Total_Expense(start_date, end_date);
+	}
+	return total_expense;
+}
+
+int ListWallet::Total_Balance(Date start_date, Date end_date)
+{
+	return ListWallet::Total_Income(start_date, end_date) - ListWallet::Total_Expense(start_date, end_date);
+}

@@ -33,7 +33,6 @@ struct Wallet {
 	void Delete_Expense_Category(string name);
 	void Edit_Expense_Category(string name_category, string name_edit);
 	void Add_Recurring(Recurring recur);
-	void Auto_Update(); //update all wallets
 
 	int Total_Income(Date start_date, Date end_date);
 	int Total_Expense(Date start_date, Date end_date);

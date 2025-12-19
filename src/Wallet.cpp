@@ -253,7 +253,59 @@ void Wallet::Add_Recurring(Recurring Recurr)
 	}
 }
 
-void Wallet::Auto_Update()
+int Wallet::Total_Income(Date start_date, Date end_date) {
+	int total_inc=0;
+	for(int i=0;i<size_inc;++i)
+	{
+		if(DatetoId(&list_inc[i].d)>=DatetoId(&start_date)&&DatetoId(&list_inc[i].d)<=DatetoId(&end_date)) 
+		{
+			total_inc+=list_inc[i].amount;
+		}
+	}
+	return total_inc;
+}
+
+int Wallet::Total_Expense(Date start_date, Date end_date) {
+	int total_exp=0;
+	for(int i=0;i<size_exp;++i)
+	{
+		if((DatetoId(&list_exp[i].d)>=DatetoId(&start_date))&&(DatetoId(&list_exp[i].d)<=DatetoId(&end_date)))
+		{
+			total_exp+=list_exp[i].amount;
+		}
+	}
+	return total_exp;
+}
+int Wallet::Total_Balance(Date start_date, Date end_date) {
+	return Wallet::Total_Income(start_date, end_date) - Wallet::Total_Expense(start_date, end_date);
+}
+
+int Wallet::Total_Income_Current_Month()
 {
-	return;
+	Date end_date = Today();
+	Date start_date;
+	start_date.day=1;
+	start_date.month = end_date.month;
+	start_date.year = end_date.year;
+	return Total_Income(start_date, end_date);
+}
+
+int Wallet::Total_Expense_Current_Month()
+{
+	Date end_date = Today();
+	Date start_date;
+	start_date.day=1;
+	start_date.month = end_date.month;
+	start_date.year = end_date.year;
+	return Total_Expense(start_date, end_date);
+}
+
+int Wallet::Total_Balance_Current_Month()
+{
+	Date end_date = Today();
+	Date start_date;
+	start_date.day=1;
+	start_date.month = end_date.month;
+	start_date.year = end_date.year;
+	return Total_Balance(start_date, end_date);
 }
