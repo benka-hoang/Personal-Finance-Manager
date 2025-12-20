@@ -19,3 +19,5 @@ inline ListWallet list_wallet;
 
 // length = 20 / 50
 void Convert_String_to_Char(char c[], const string &s, int length);
+bool CompareEqual(char a[], char b[], int length);
+void AssignChar(char a[], char b[], int length);

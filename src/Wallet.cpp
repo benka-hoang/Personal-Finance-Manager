@@ -128,7 +128,7 @@ void Wallet::Delete_Income_Source(string name)
 	Convert_String_to_Char(name_char, name, 20);
 	for(int i=0;i<size_inc;++i)
 	{
-		if(list_inc[i].source.name==name_char) 
+		if(CompareEqual(list_inc[i].source.name, name_char, 20)) 
 		{
 			Convert_String_to_Char(list_inc[i].source.name, Others, 20);
 			list_inc[i].source.id=0;
@@ -158,6 +158,7 @@ void Wallet::Delete_Income_Source(string name)
 
 void Wallet::Edit_Income_Source(string name_inc, string name_edit)
 {
+	char name_inc_char[20];
 	for(int i=0;i<size_source;++i)
 	{
 		if(inc_source[i].name==name_inc) Convert_String_to_Char(inc_source[i].name, name_edit, 20);
@@ -228,57 +229,57 @@ void Wallet::Edit_Expense_Category(string name_category, string name_edit)
 	}
 	for(int i=0;i<size_exp;++i)
 	{
-		if(list_exp[i].category.name==name_category) list_exp[i].category.name=name_edit;
+	if (list_exp[i].category.name == name_category) list_exp[i].category.name = name_edit;
 	}
 }
 
-const Date limit_date={31, 12, 9999};
+const Date limit_date = { 31, 12, 9999 };
 void Wallet::Add_Recurring(Recurring Recurr)
 {
 	Date temp = Recurr.start_date;
-	if(Recurr.end_date.day==0&& Recurr.end_date.month==0&& Recurr.end_date.year==0)
+	if (Recurr.end_date.day == 0 && Recurr.end_date.month == 0 && Recurr.end_date.year == 0)
 	{
-		Recurr.end_date=limit_date;
+		Recurr.end_date = limit_date;
 	}
-	while(DatetoId(&temp)<=DatetoId(&Recurr.end_date))
+	while (DatetoId(&temp) <= DatetoId(&Recurr.end_date))
 	{
-		Date cur=ConvertDate(&temp);
-		if(Recurr.type==1)
+		Date cur = ConvertDate(&temp);
+		if (Recurr.type == 1)
 		{
 			Add_Income(cur, Recurr.amount, Recurr.category, Recurr.name);
 		}
-		else if(Recurr.type==-1)
+		else if (Recurr.type == -1)
 		{
 			Add_Expense(cur, Recurr.amount, Recurr.category, Recurr.name);
 		}
 		temp.month++;
-		if(temp.month==13) 
+		if (temp.month == 13)
 		{
-			temp.month=1;
+			temp.month = 1;
 			temp.year++;
 		}
 	}
 }
 
 int Wallet::Total_Income(Date start_date, Date end_date) {
-	int total_inc=0;
-	for(int i=0;i<size_inc;++i)
+	int total_inc = 0;
+	for (int i = 0; i < size_inc; ++i)
 	{
-		if(DatetoId(&list_inc[i].d)>=DatetoId(&start_date)&&DatetoId(&list_inc[i].d)<=DatetoId(&end_date)) 
+		if (DatetoId(&list_inc[i].d) >= DatetoId(&start_date) && DatetoId(&list_inc[i].d) <= DatetoId(&end_date))
 		{
-			total_inc+=list_inc[i].amount;
+			total_inc += list_inc[i].amount;
 		}
 	}
 	return total_inc;
 }
 
 int Wallet::Total_Expense(Date start_date, Date end_date) {
-	int total_exp=0;
-	for(int i=0;i<size_exp;++i)
+	int total_exp = 0;
+	for (int i = 0; i < size_exp; ++i)
 	{
-		if((DatetoId(&list_exp[i].d)>=DatetoId(&start_date))&&(DatetoId(&list_exp[i].d)<=DatetoId(&end_date)))
+		if ((DatetoId(&list_exp[i].d) >= DatetoId(&start_date)) && (DatetoId(&list_exp[i].d) <= DatetoId(&end_date)))
 		{
-			total_exp+=list_exp[i].amount;
+			total_exp += list_exp[i].amount;
 		}
 	}
 	return total_exp;
@@ -291,7 +292,7 @@ int Wallet::Total_Income_Current_Month()
 {
 	Date end_date = Today();
 	Date start_date;
-	start_date.day=1;
+	start_date.day = 1;
 	start_date.month = end_date.month;
 	start_date.year = end_date.year;
 	return Total_Income(start_date, end_date);
@@ -301,7 +302,7 @@ int Wallet::Total_Expense_Current_Month()
 {
 	Date end_date = Today();
 	Date start_date;
-	start_date.day=1;
+	start_date.day = 1;
 	start_date.month = end_date.month;
 	start_date.year = end_date.year;
 	return Total_Expense(start_date, end_date);
@@ -311,8 +312,49 @@ int Wallet::Total_Balance_Current_Month()
 {
 	Date end_date = Today();
 	Date start_date;
-	start_date.day=1;
+	start_date.day = 1;
 	start_date.month = end_date.month;
 	start_date.year = end_date.year;
 	return Total_Balance(start_date, end_date);
+}
+
+int * Wallet::Annual_Income_Source(int n, int * year){
+	int *sum_inc_source = new int[size_source];
+	for (int i = 0; i < size_source; ++i)
+		sum_inc_source[i] = 0;
+	for (int i = 0; i < size_inc; ++i) if (Belong_to_Years(&list_inc[i].d, n, year)) {
+		sum_inc_source[list_inc[i].source.id] += list_inc[i].amount;
+	}
+	return sum_inc_source;
+}
+
+int * Wallet::Annual_Expense_Category(int n, int * year){
+	int *sum_exp_source = new int[size_source];
+	for (int i = 0; i < size_source; ++i)
+		sum_exp_source[i] = 0;
+	for (int i = 0; i < size_exp; ++i) if (Belong_to_Years(&list_exp[i].d, n, year)) {
+		sum_exp_source[list_exp[i].category.id] += list_exp[i].amount;
+	}
+	return sum_exp_source;
+}
+
+int Wallet::Annual_Income(int n, int * year) {
+	int sum = 0;
+	for (int i = 0; i < size_inc; ++i) if (Belong_to_Years(&list_inc[i].d, n, year)) {
+		sum = sum + list_inc[i].amount;
+	}
+	return sum;
+}
+
+int Wallet::Annual_Expense(int n, int * year) {
+	int sum = 0;
+	for (int i = 0; i < size_inc; ++i) if (Belong_to_Years(&list_exp[i].d, n, year)){
+		sum = sum + list_exp[i].amount;
+	}
+	return sum;
+}
+
+int Wallet::Annual_Balance(int n, int * year){
+	int sum = Annual_Income(n, year) - Annual_Expense(n, year);
+	return sum;
 }
