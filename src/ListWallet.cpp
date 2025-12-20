@@ -68,3 +68,15 @@ void Convert_String_to_Char(char c[], const string &s, int length) {
 		c[i] = ' ';
 	return;
 }
+
+bool CompareEqual(char a[], char b[], int length){
+	for (int i = 0; i < length; ++i) if (a[i] != b[i])
+		return false;
+	return true;
+}
+
+void AssignChar(char a[], char b[], int length){
+	for (int i = 0; i < length; ++i)
+		a[i] = b[i];
+	return;
+}

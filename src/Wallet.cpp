@@ -128,7 +128,7 @@ void Wallet::Delete_Income_Source(string name)
 	Convert_String_to_Char(name_char, name, 20);
 	for(int i=0;i<size_inc;++i)
 	{
-		if(list_inc[i].source.name==name_char) 
+		if(CompareEqual(list_inc[i].source.name, name_char, 20)) 
 		{
 			Convert_String_to_Char(list_inc[i].source.name, Others, 20);
 			list_inc[i].source.id=0;
@@ -158,9 +158,11 @@ void Wallet::Delete_Income_Source(string name)
 
 void Wallet::Edit_Income_Source(string name_inc, string name_edit)
 {
+	char name_inc_char[20]
 	for(int i=0;i<size_source;++i)
 	{
-		if(inc_source[i].name==name_inc) inc_source[i].name=name_edit;
+		if(CompareEqual(inc_source[i].name, name_inc_char, 20)) 
+			inc_source[i].name=name_edit;
 	}
 	for(int i=0;i<size_inc;++i)
 	{
