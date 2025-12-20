@@ -7,7 +7,7 @@
 
 struct Wallet {
 	int id;
-	string name;
+	char name[20];
 	int balance;
 	int size_inc, max_size_inc;
 	int size_exp, max_size_exp;
@@ -26,12 +26,16 @@ struct Wallet {
 	void Init();
 	void Add_Source(string name_source);
 	void Add_Category(string name_category);
+	
 	void Add_Income(Date d, int amount, Category source, string des);
-	void Delete_Income_Source(string name);
-	void Edit_Income_Source(string name_source, string name_edit);
 	void Add_Expense(Date d, int amount, Category category, string des);
+
+	void Delete_Income_Source(string name);
 	void Delete_Expense_Category(string name);
+
+	void Edit_Income_Source(string name_source, string name_edit);
 	void Edit_Expense_Category(string name_category, string name_edit);
+
 	void Add_Recurring(Recurring recur);
 
 	int Total_Income(Date start_date, Date end_date);

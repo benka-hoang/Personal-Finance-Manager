@@ -6,7 +6,7 @@ struct Expense {
 	Date d;
 	int amount;
 	Category category;
-	string des;
+	char des[50];
 
 	void Display();
 };

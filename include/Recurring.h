@@ -3,7 +3,7 @@
 #include"Category.h"
 
 struct Recurring {
-	string name;
+	char name[20];
 	Date start_date, end_date;
 	int type;
 	int amount;

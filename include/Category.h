@@ -5,7 +5,7 @@ using namespace std;
 
 struct Category {
 	int id;
-	string name;
+	char name[20];
 
 	void Display();
 };

@@ -14,7 +14,8 @@ void ListWallet::Add_Wallet(string name_wallet) {
 	{
 		wallet[size].Init();
 		wallet[size].id=size;
-		wallet[size].name=name_wallet;
+		Convert_String_to_Char(wallet[size].name, name_wallet, 20);
+		// Tao ham chuyen string -> char
 		size++;
 	}
 	else
@@ -29,7 +30,7 @@ void ListWallet::Add_Wallet(string name_wallet) {
 		max_size = max_size + extra_space;
 		wallet[size].Init();
 		wallet[size].id=size;
-		wallet[size].name=name_wallet;
+		Convert_String_to_Char(wallet[size].name, name_wallet, 20);
 		size++;
 	}
 	return;
@@ -58,4 +59,12 @@ int ListWallet::Total_Expense(Date start_date, Date end_date)
 int ListWallet::Total_Balance(Date start_date, Date end_date)
 {
 	return ListWallet::Total_Income(start_date, end_date) - ListWallet::Total_Expense(start_date, end_date);
+}
+
+void Convert_String_to_Char(char c[], const string &s, int length) {
+	for (int i = 0; i < s.size(); ++i)
+		c[i] = s[i];
+	for (int i = s.size(); i < length; ++i)
+		c[i] = ' ';
+	return;
 }

@@ -1,8 +1,13 @@
 #pragma once
+#include"../include/ListWallet.h"
 #include"../include/Expense.h"
 
 Expense Info_to_Expense(Date &d, int &amount, Category &category, string &des) {
-	Expense exp = { d, amount, category, des };
+	Expense exp;
+	exp.d = d;
+	exp.amount = amount;
+	exp.category = category;
+	Convert_String_to_Char(exp.des, des, 50);
 	return exp;
 }
 
