@@ -160,11 +160,11 @@ void Wallet::Edit_Income_Source(string name_inc, string name_edit)
 {
 	for(int i=0;i<size_source;++i)
 	{
-		if(inc_source[i].name==name_inc) inc_source[i].name=name_edit;
+		if(inc_source[i].name==name_inc) Convert_String_to_Char(inc_source[i].name, name_edit, 20);
 	}
 	for(int i=0;i<size_inc;++i)
 	{
-		if(list_inc[i].source.name==name_inc) list_inc[i].source.name=name_edit;
+		if(list_inc[i].source.name==name_inc) Convert_String_to_Char(inc_source[i].name, name_edit, 20);
 	}
 }
 
@@ -196,7 +196,7 @@ void Wallet::Delete_Expense_Category(string name)
 	{
 		if(list_exp[i].category.name==name) 
 		{
-			list_exp[i].category.name="Others";
+			Convert_String_to_Char(list_exp[i].category.name, Others, 20);
 			list_exp[i].category.id=0;
 		}
 	}
