@@ -17,6 +17,12 @@ void Income::Display(){
 	cout << "     Date : "; d.OutputConsole();
 	cout << "     Amount : "; cout << amount << "\n";
 	cout << "     Source : "; source.Display();
-	cout << "     Descrip : "; cout << des << "\n";
+	cout << "     Descrip : "; cout << Convert_Char_to_String(des, 50) << "\n";
+	return;
+}
+
+void Income::Init(){
+	d = { 1, 1, 1 };
+	amount = 0;
 	return;
 }

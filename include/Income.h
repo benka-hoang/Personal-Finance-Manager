@@ -7,7 +7,9 @@ struct Income {
 	int amount;
 	Category source;
 	char des[50];
+
 	void Display();
+	void Init();
 };
 
 Income Info_to_Income(Date &d, int &amount, Category &source, string &des);

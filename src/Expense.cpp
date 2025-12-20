@@ -16,6 +16,6 @@ void Expense::Display() {
 	cout << "     Date : "; d.OutputConsole();
 	cout << "     Amount : "; cout << amount << "\n";
 	cout << "     Source : "; category.Display();
-	cout << "     Descrip : "; cout << des << "\n";
+	cout << "     Descrip : "; cout << Convert_Char_to_String(des, 50) << "\n";
 	return;
 }

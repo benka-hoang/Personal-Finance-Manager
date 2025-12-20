@@ -5,6 +5,8 @@ void ListWallet::Init() {
 	max_size = 10;
 	wallet = new Wallet[max_size];
 	Add_Wallet("Others");
+	for (int i = 1; i < max_size; ++i)
+		wallet[i].Init();
 	return;
 }
 
@@ -61,6 +63,16 @@ int ListWallet::Total_Balance(Date start_date, Date end_date)
 	return ListWallet::Total_Income(start_date, end_date) - ListWallet::Total_Expense(start_date, end_date);
 }
 
+
+void ListWallet::SaveData(){
+	ofstream fout;
+	fout.open("data/data.bin", ios::binary);
+	fout.write((char*)&size, 4);
+	fout.write((char*)&max_size, 4);
+	
+	return;
+}
+
 void Convert_String_to_Char(char c[], const string &s, int length) {
 	for (int i = 0; i < s.size(); ++i)
 		c[i] = s[i];
@@ -79,4 +91,16 @@ void AssignChar(char a[], char b[], int length){
 	for (int i = 0; i < length; ++i)
 		a[i] = b[i];
 	return;
+}
+
+string Convert_Char_to_String(char c[], int length){
+	int pos = length - 1;
+	for (int i = length - 1; i >= 0; --i) if (c[i] != ' ') {
+		pos = i;
+		break;
+	}
+	string s;
+	for (int i = 0; i <= pos; ++i)
+		s.push_back(c[i]);
+	return s;
 }

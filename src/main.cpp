@@ -62,5 +62,7 @@ int main() {
 	Category category3 = { 2, "Poker" };
 	Recurring Re3 = Info_to_Recurring(name3, start_date3, end_date3, type3, amount3, category3);
 	list_wallet.wallet[0].Add_Recurring(Re3);
+
+	list_wallet.SaveData();
 	return 0;
 }
