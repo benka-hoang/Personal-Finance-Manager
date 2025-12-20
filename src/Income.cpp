@@ -1,9 +1,14 @@
 #pragma once
 #include<iostream>
+#include"../include/ListWallet.h"
 #include"../include/Income.h"
 
 Income Info_to_Income(Date &d, int &amount, Category &source, string &des) {
-	Income inc = { d, amount, source, des };
+	Income inc; 
+	inc.d = d;
+	inc.amount = amount;
+	inc.source = source;
+	Convert_String_to_Char(inc.des, des, 50);
 	return inc;
 }
 

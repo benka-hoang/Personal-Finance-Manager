@@ -6,8 +6,7 @@ struct Income {
 	Date d;
 	int amount;
 	Category source;
-	string des;
-
+	char des[50];
 	void Display();
 };
 

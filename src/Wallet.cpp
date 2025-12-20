@@ -1,4 +1,5 @@
 #include"../include/Wallet.h"
+#include"../include/ListWallet.h"
 
 void Wallet::Display_Income(){
 	cout << "List of Income :\n";
@@ -34,7 +35,8 @@ void Wallet::Display_Category(){
 
 void Wallet::Init(){
 	id = 0;
-	name = "";
+	for (int i = 0; i < 20; ++i)
+		name[i] = ' ';
 	balance = 0;
 	size_inc = size_exp = size_source = size_category = 0;
 	max_size_inc = max_size_exp = max_size_source = max_size_category = 10;
@@ -53,7 +55,7 @@ void Wallet::Add_Source(string name_source) {
 	if(size_source<max_size_source)
 	{
 		inc_source[size_source].id=size_source;
-		inc_source[size_source].name=name_source;
+		Convert_String_to_Char(inc_source[size_source].name, name_source, 20);
 		size_source++;
 	}
 	else
@@ -67,7 +69,7 @@ void Wallet::Add_Source(string name_source) {
 		inc_source=new_list;
 		max_size_source=max_size_source+extra_space;
 		inc_source[size_inc].id=size_inc;
-		inc_source[size_inc].name=name_source;
+		Convert_String_to_Char(inc_source[size_source].name, name_source, 20);
 		size_source++;
 	}
 	return;
@@ -77,7 +79,7 @@ void Wallet::Add_Category(string name_category) {
 	if(size_category<max_size_category)
 	{
 		exp_category[size_category].id=size_category;
-		exp_category[size_category].name=name_category;
+		Convert_String_to_Char(exp_category[size_category].name, name_category, 20);
 		size_category++;
 	}
 	else
@@ -91,7 +93,7 @@ void Wallet::Add_Category(string name_category) {
 		exp_category=new_list;
 		max_size_category=max_size_category+extra_space;
 		exp_category[size_category].id=size_category;
-		exp_category[size_category].name=name_category;
+		Convert_String_to_Char(exp_category[size_category].name, name_category, 20);
 		size_category++;
 	}
 	return;
@@ -119,13 +121,16 @@ void Wallet::Add_Income(Date d, int amount, Category source, string des) {
 	return;
 }
 
+const string Others = "Others";
 void Wallet::Delete_Income_Source(string name)
 {
+	char name_char[20];
+	Convert_String_to_Char(name_char, name, 20);
 	for(int i=0;i<size_inc;++i)
 	{
-		if(list_inc[i].source.name==name) 
+		if(list_inc[i].source.name==name_char) 
 		{
-			list_inc[i].source.name="Others";
+			Convert_String_to_Char(list_inc[i].source.name, Others, 20);
 			list_inc[i].source.id=0;
 		}
 	}
@@ -136,7 +141,9 @@ void Wallet::Delete_Income_Source(string name)
 		{
 			for(int j=i;j<size_source-1;++j) 
 			{
-				inc_source[j].name=inc_source[j+1].name;
+				for (int k = 0; k < 20; ++k) {
+					inc_source[j].name[k] = inc_source[j + 1].name[k];
+				}
 				inc_source[j].id=j;
 			}
 			id = i;
@@ -238,11 +245,11 @@ void Wallet::Add_Recurring(Recurring Recurr)
 		Date cur = ConvertDate(&temp);
 		if (Recurr.type == 1)
 		{
-			Add_Income(cur, Recurr.amount, Recurr.category, "Recurring" + Recurr.name);
+			Add_Income(cur, Recurr.amount, Recurr.category, Recurr.name);
 		}
 		else if (Recurr.type == -1)
 		{
-			Add_Expense(cur, Recurr.amount, Recurr.category, "Recurring" + Recurr.name);
+			Add_Expense(cur, Recurr.amount, Recurr.category, Recurr.name);
 		}
 		temp.month++;
 		if (temp.month == 13)
