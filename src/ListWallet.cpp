@@ -94,9 +94,31 @@ void ListWallet::SaveData(){
 	return;
 }
 
-void ListWallet::ReadData(){
+void ListWallet::LoadData(){
 	ifstream fin;
-	
+	fin.open("data/data.bin", ios::binary);
+	fin.read((char*)&size, 4);
+	fin.read((char*)&max_size, 4);
+	list_wallet.wallet = new Wallet[max_size];
+	for (int i = 0; i < max_size; ++i) {
+		fin.read((char*)&wallet[i], 10 * sizeof(int));
+	}
+	for (int i = 0; i < max_size; ++i) {
+		fin.read(wallet[i].name, 20);
+	}
+	for (int i = 0; i < max_size; ++i) {
+		Wallet &w = wallet[i];
+		w.list_inc = new Income[w.max_size_inc];
+		w.list_exp = new Expense[w.max_size_exp];
+		w.inc_source = new Category[w.max_size_source];
+		w.exp_category = new Category[w.max_size_category];
+		fin.read((char*)w.list_inc, sizeof(Income) * w.max_size_inc);
+		fin.read((char*)w.list_exp, sizeof(Expense) * w.max_size_exp);
+		fin.read((char*)w.inc_source, sizeof(Category) * w.max_size_source);
+		fin.read((char*)w.exp_category, sizeof(Category) * w.max_size_category);
+	}
+	cout << "Load data successfully!" << "\n";
+	fin.close();
 	return;
 }
 

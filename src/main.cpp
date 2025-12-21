@@ -13,8 +13,11 @@ using namespace std;
 void CreateSampleData();
 
 int main() {
-	CreateSampleData();
-	list_wallet.SaveData();
+	list_wallet.LoadData();
+	list_wallet.wallet[3].Display_Source();
+	list_wallet.wallet[3].Display_Category();
+	list_wallet.wallet[3].Display_Income();
+	list_wallet.wallet[3].Display_Expense();
 	return 0;
 }
 
