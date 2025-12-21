@@ -7,12 +7,12 @@
 
 struct Wallet {
 	int id;
-	char name[20];
 	int balance;
 	int size_inc, max_size_inc;
 	int size_exp, max_size_exp;
 	int size_source, max_size_source;
 	int size_category, max_size_category;
+	char name[20];
 	Income* list_inc;
 	Expense* list_exp;
 	Category* inc_source;

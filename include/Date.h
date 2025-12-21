@@ -23,7 +23,7 @@ struct Date {
 	}
 
 	void OutputConsole() {
-		cout << year << "/" << month << "/" << day << "\n";
+		cout << day << "/" << month << "/" << year << "\n";
 		return;
 	}
 

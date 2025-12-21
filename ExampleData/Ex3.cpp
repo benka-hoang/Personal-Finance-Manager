@@ -11,7 +11,6 @@
 using namespace std;
 
 int Ex3() {
-	ListWallet list_wallet;
 	list_wallet.Init();
 	list_wallet.Add_Wallet("momo");
 

@@ -63,12 +63,39 @@ int ListWallet::Total_Balance(Date start_date, Date end_date)
 	return ListWallet::Total_Income(start_date, end_date) - ListWallet::Total_Expense(start_date, end_date);
 }
 
-
 void ListWallet::SaveData(){
 	ofstream fout;
 	fout.open("data/data.bin", ios::binary);
 	fout.write((char*)&size, 4);
 	fout.write((char*)&max_size, 4);
+	for (int i = 0; i < max_size; ++i) {
+		fout.write((char*)&wallet[i].id, 4);
+		fout.write((char*)&wallet[i].balance, 4);
+		fout.write((char*)&wallet[i].size_inc, 4);
+		fout.write((char*)&wallet[i].max_size_inc, 4);
+		fout.write((char*)&wallet[i].size_exp, 4);
+		fout.write((char*)&wallet[i].max_size_exp, 4);
+		fout.write((char*)&wallet[i].size_source, 4);
+		fout.write((char*)&wallet[i].max_size_source, 4);
+		fout.write((char*)&wallet[i].size_category, 4);
+		fout.write((char*)&wallet[i].max_size_category, 4);
+	}
+	for (int i = 0; i < max_size; ++i) {
+		fout.write(wallet[i].name, 20);
+	}
+	for (int i = 0; i < max_size; ++i) {
+		fout.write((char*)wallet[i].list_inc, sizeof(Income) * wallet[i].max_size_inc);
+		fout.write((char*)wallet[i].list_exp, sizeof(Expense) * wallet[i].max_size_exp);
+		fout.write((char*)wallet[i].inc_source, sizeof(Category) * wallet[i].max_size_source);
+		fout.write((char*)wallet[i].exp_category, sizeof(Category) * wallet[i].max_size_category);
+	}
+	cout << "Save data successfully!" << "\n";
+	fout.close();
+	return;
+}
+
+void ListWallet::ReadData(){
+	ifstream fin;
 	
 	return;
 }

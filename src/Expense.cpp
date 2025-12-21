@@ -19,3 +19,12 @@ void Expense::Display() {
 	cout << "     Descrip : "; cout << Convert_Char_to_String(des, 50) << "\n";
 	return;
 }
+
+void Expense::Init(){
+	d = { 1, 1, 1 };
+	amount = 0;
+	category.Init();
+	for (int i = 0; i < 50; ++i)
+		des[i] = ' ';
+	return;
+}

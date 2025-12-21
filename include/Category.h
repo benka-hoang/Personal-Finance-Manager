@@ -8,4 +8,5 @@ struct Category {
 	char name[20];
 
 	void Display();
+	void Init();
 };

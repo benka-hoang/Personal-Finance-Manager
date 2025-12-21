@@ -24,5 +24,8 @@ void Income::Display(){
 void Income::Init(){
 	d = { 1, 1, 1 };
 	amount = 0;
+	source.Init();
+	for (int i = 0; i < 50; ++i)
+		des[i] = ' ';
 	return;
 }

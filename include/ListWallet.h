@@ -13,6 +13,7 @@ struct ListWallet{
 	int Total_Balance(Date start_date, Date end_date);
 
 	void SaveData();
+	void ReadData();
 	// Truyen toan bo du lieu -> Binary File
 };
 

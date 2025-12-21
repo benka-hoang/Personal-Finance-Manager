@@ -44,9 +44,10 @@ void Wallet::Init(){
 	list_exp = new Expense[max_size_exp];
 	inc_source = new Category[max_size_inc];
 	exp_category = new Category[max_size_category];
-	for (int i = 0; i < max_size_inc; ++i) {
-		
-	}
+	for (int i = 0; i < max_size_inc; ++i) list_inc[i].Init();
+	for (int i = 0; i < max_size_exp; ++i) list_exp[i].Init();
+	for (int i = 0; i < max_size_source; ++i) inc_source[i].Init();
+	for (int i = 0; i < max_size_category; ++i) exp_category[i].Init();
 	Add_Source("Others");
 	Add_Category("Others");
 	return;

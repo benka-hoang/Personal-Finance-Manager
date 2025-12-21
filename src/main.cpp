@@ -10,59 +10,95 @@
 
 using namespace std;
 
+void CreateSampleData();
+
 int main() {
-	list_wallet.Init();
-	list_wallet.Add_Wallet("momo");
-
-	// Example data
-	list_wallet.wallet[0].Add_Source("Salary");
-	list_wallet.wallet[0].Add_Source("Poker");
-	list_wallet.wallet[0].Add_Source("Bussiness");
-	list_wallet.wallet[0].Add_Category("House");
-	list_wallet.wallet[0].Add_Category("Food");
-	list_wallet.wallet[0].Add_Category("Poker");
-
-	// Income Info
-	Date d1 = { 14, 12, 2025 };
-	int amount1 = 150000;
-	Category source1 = { 1, "Salary" };
-	string des1 = "Luong ve";
-	list_wallet.wallet[0].Add_Income(d1, amount1, source1, des1);
-
-	Date d11 = { 10, 12, 2025 };
-	int amount11 = 150000;
-	Category source11 = { 3, "Bussiness" };
-	string des11 = "Tien ve";
-	list_wallet.wallet[0].Add_Income(d11, amount11, source11, des11);	
-	
-	Date d12 = { 10, 12, 2023 };
-	int amount12 = 20000;
-	Category source12 = { 3, "Bussiness" };
-	string des12 = "2023 Do nha";
-	list_wallet.wallet[0].Add_Income(d12, amount12, source12, des12);
-
-	// Expense Info
-	Date d2 = { 14, 12, 2025 };
-	int amount2 = 150000;
-	Category category2 = { 2, "Food" };
-	string des2 = "Tien an";
-	list_wallet.wallet[0].Add_Expense(d2, amount2, category2, des2);
-
-	Date d21 = { 14, 12, 2021 };
-	int amount21 = 150000;
-	Category category21 = { 1, "House" };
-	string des21 = "2021 Do nha";
-	list_wallet.wallet[0].Add_Expense(d21, amount21, category21, des21);
-
-	// Recurring Info
-	string name3 = "TaiXiu";
-	Date start_date3 = { 31, 7, 2025 };
-	Date end_date3 = { 31, 12, 2025 };
-	int type3 = +1, amount3 = 5000;
-	Category category3 = { 2, "Poker" };
-	Recurring Re3 = Info_to_Recurring(name3, start_date3, end_date3, type3, amount3, category3);
-	list_wallet.wallet[0].Add_Recurring(Re3);
-
+	CreateSampleData();
 	list_wallet.SaveData();
 	return 0;
+}
+
+// Function to generate sample data
+void CreateSampleData() {
+	// 1. Initialize global wallet list
+	// Note: This automatically creates wallet[0] named "Others"
+	list_wallet.Init();
+
+	// ---------------------------------------------------------
+	// WALLET 1: Personal Wallet (Stored at index 1)
+	// ---------------------------------------------------------
+	list_wallet.Add_Wallet("Personal Wallet");
+
+	// Access wallet at index 1 (Index 0 is "Others")
+	Wallet& w1 = list_wallet.wallet[1];
+
+	// Add Income Sources
+	// Note: Index 0 is "Others" (created by Init). New sources start at index 1.
+	w1.Add_Source("Salary");        // index 1
+	w1.Add_Source("Bonus");         // index 2
+	w1.Add_Source("Gift");          // index 3
+
+	// Add Expense Categories
+	// Note: Index 0 is "Others". New categories start at index 1.
+	w1.Add_Category("Food");          // index 1
+	w1.Add_Category("Transport");     // index 2
+	w1.Add_Category("Entertainment"); // index 3
+
+	// Add Income
+	// Use w1.inc_source[x] where x matches the added source index
+	w1.Add_Income({ 10, 1, 2024 }, 20000000, w1.inc_source[1], "January Salary");
+	w1.Add_Income({ 15, 1, 2024 }, 5000000, w1.inc_source[2], "Tet Bonus");
+
+	// Add Expense
+	w1.Add_Expense({ 11, 1, 2024 }, 50000, w1.exp_category[1], "Lunch");
+	w1.Add_Expense({ 12, 1, 2024 }, 30000, w1.exp_category[2], "Bus ticket");
+	w1.Add_Expense({ 14, 1, 2024 }, 200000, w1.exp_category[3], "Movie tickets");
+
+
+	// ---------------------------------------------------------
+	// WALLET 2: Savings Fund (Stored at index 2)
+	// ---------------------------------------------------------
+	list_wallet.Add_Wallet("Savings Fund");
+	Wallet& w2 = list_wallet.wallet[2];
+
+	// Source (starts at index 1)
+	w2.Add_Source("Bank Interest"); // index 1
+	w2.Add_Source("Deposit");       // index 2
+
+	// Category (starts at index 1)
+	w2.Add_Category("Investment");  // index 1
+	w2.Add_Category("Emergency");   // index 2
+
+	// Income
+	w2.Add_Income({ 1, 2, 2024 }, 10000000, w2.inc_source[2], "Initial Deposit");
+	w2.Add_Income({ 28, 2, 2024 }, 50000, w2.inc_source[1], "Feb Interest");
+
+	// Expense
+	w2.Add_Expense({ 15, 3, 2024 }, 2000000, w2.exp_category[1], "Buy Stocks");
+
+
+	// ---------------------------------------------------------
+	// WALLET 3: Travel Fund (Stored at index 3)
+	// ---------------------------------------------------------
+	list_wallet.Add_Wallet("Travel Fund");
+	Wallet& w3 = list_wallet.wallet[3];
+
+	// Source
+	w3.Add_Source("Freelance");     // index 1
+	w3.Add_Source("Selling Items"); // index 2
+
+	// Category
+	w3.Add_Category("Flight");      // index 1
+	w3.Add_Category("Hotel");       // index 2
+	w3.Add_Category("Visa");        // index 3
+
+	// Income
+	w3.Add_Income({ 5, 4, 2024 }, 3000000, w3.inc_source[1], "Project Payment");
+	w3.Add_Income({ 10, 4, 2024 }, 500000, w3.inc_source[2], "Sold old books");
+
+	// Expense
+	w3.Add_Expense({ 20, 4, 2024 }, 1500000, w3.exp_category[1], "Book Flight to Da Nang");
+	w3.Add_Expense({ 21, 4, 2024 }, 800000, w3.exp_category[2], "Deposit Hotel");
+
+	cout << "Sample data generated successfully!" << endl;
 }
