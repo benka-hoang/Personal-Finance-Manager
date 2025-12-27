@@ -1,4 +1,5 @@
 #include "../include/ListWallet.h"
+#include <assert.h>
 
 void ListWallet::Init() {
 	size = 0;
@@ -43,6 +44,35 @@ void ListWallet::Add_Wallet(string name_wallet) {
 	return;
 }
 
+void ListWallet::Delete_Wallet(string name_wallet){
+	char c[20];
+	Convert_String_to_Char(c, name_wallet, 20);
+	int pos = -1;
+	for (int i = 0; i < size; ++i) if (CompareEqual(wallet[i].name, c, 20)) {
+		pos = i;
+		break;
+	}
+	assert(pos != -1);
+	for (int i = pos; i < size - 1; ++i)
+		wallet[i] = wallet[i + 1];
+	--size;
+	for (int i = 0; i < size; ++i)
+		wallet[i].id = i;
+	SaveData();
+	return;
+}
+
+void ListWallet::Edit_Wallet(string old_name, string new_name){
+	char Old[20], New[20];
+	Convert_String_to_Char(Old, old_name, 20);
+	Convert_String_to_Char(New, new_name, 20);
+	for (int i = 0; i < size; ++i) if(CompareEqual(Old, wallet[i].name, 20)){
+		AssignChar(wallet[i].name, New, 20);
+	}
+	SaveData();
+	return;
+}
+
 int ListWallet::Total_Income(Date start_date, Date end_date)
 {
 	int total_income=0;
@@ -83,7 +113,7 @@ void ListWallet::SaveData(){
 	fout.open("data/data.bin", ios::binary);
 	fout.write((char*)&size, 4);
 	fout.write((char*)&max_size, 4);
-	for (int i = 0; i < max_size; ++i) {
+	for (int i = 0; i < size; ++i) {
 		fout.write((char*)&wallet[i].id, 4);
 		fout.write((char*)&wallet[i].balance, 4);
 		fout.write((char*)&wallet[i].size_inc, 4);
@@ -95,16 +125,15 @@ void ListWallet::SaveData(){
 		fout.write((char*)&wallet[i].size_category, 4);
 		fout.write((char*)&wallet[i].max_size_category, 4);
 	}
-	for (int i = 0; i < max_size; ++i) {
+	for (int i = 0; i < size; ++i) {
 		fout.write(wallet[i].name, 20);
 	}
-	for (int i = 0; i < max_size; ++i) {
+	for (int i = 0; i < size; ++i) {
 		fout.write((char*)wallet[i].list_inc, sizeof(Income) * wallet[i].max_size_inc);
 		fout.write((char*)wallet[i].list_exp, sizeof(Expense) * wallet[i].max_size_exp);
 		fout.write((char*)wallet[i].inc_source, sizeof(Category) * wallet[i].max_size_source);
 		fout.write((char*)wallet[i].exp_category, sizeof(Category) * wallet[i].max_size_category);
 	}
-	cout << "Save data successfully!" << "\n";
 	fout.close();
 	return;
 }
@@ -115,13 +144,13 @@ void ListWallet::LoadData(){
 	fin.read((char*)&size, 4);
 	fin.read((char*)&max_size, 4);
 	list_wallet.wallet = new Wallet[max_size];
-	for (int i = 0; i < max_size; ++i) {
+	for (int i = 0; i < size; ++i) {
 		fin.read((char*)&wallet[i], 10 * sizeof(int));
 	}
-	for (int i = 0; i < max_size; ++i) {
+	for (int i = 0; i < size; ++i) {
 		fin.read(wallet[i].name, 20);
 	}
-	for (int i = 0; i < max_size; ++i) {
+	for (int i = 0; i < size; ++i) {
 		Wallet &w = wallet[i];
 		w.list_inc = new Income[w.max_size_inc];
 		w.list_exp = new Expense[w.max_size_exp];

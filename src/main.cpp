@@ -13,9 +13,7 @@ using namespace std;
 void CreateSampleData();
 
 int main() {
-	CreateSampleData();
-	list_wallet.SaveData();
-	list_wallet.Display();
+
 	return 0;
 }
 
