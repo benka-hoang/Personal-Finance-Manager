@@ -7,14 +7,22 @@
 #include"../include/Wallet.h"
 #include"../include/ListWallet.h"
 #include"../include/Recurring.h"
+#include"../include/UserInterface.h"
 
 using namespace std;
 
 void CreateSampleData();
+void DefaultProgram();
 
 int main() {
-
+	UI();
 	return 0;
+}
+
+void DefaultProgram() {
+	list_wallet.Init();
+	list_wallet.SaveData();
+	return;
 }
 
 // Function to generate sample data

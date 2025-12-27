@@ -4,6 +4,9 @@
 #include"Wallet.h"
 
 struct ListWallet{
+	bool first_time;
+	char user_name[32], password[32];
+
 	int size, max_size;
 	Wallet* wallet;
 

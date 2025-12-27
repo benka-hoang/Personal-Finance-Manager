@@ -2,6 +2,11 @@
 #include <assert.h>
 
 void ListWallet::Init() {
+	first_time = true;
+	for (int i = 0; i < 32; ++i) {
+		user_name[i] = ' ';
+		password[i] = ' ';
+	}
 	size = 0;
 	max_size = 10;
 	wallet = new Wallet[max_size];
@@ -111,6 +116,9 @@ void ListWallet::Display(){
 void ListWallet::SaveData(){
 	ofstream fout;
 	fout.open("data/data.bin", ios::binary);
+	fout.write((char*)&first_time, 1);
+	fout.write((char*)user_name, 32);
+	fout.write((char*)password, 32);
 	fout.write((char*)&size, 4);
 	fout.write((char*)&max_size, 4);
 	for (int i = 0; i < size; ++i) {
@@ -141,6 +149,9 @@ void ListWallet::SaveData(){
 void ListWallet::LoadData(){
 	ifstream fin;
 	fin.open("data/data.bin", ios::binary);
+	fin.read((char*)&first_time, 1);
+	fin.read((char*)user_name, 32);
+	fin.read((char*)password, 32);
 	fin.read((char*)&size, 4);
 	fin.read((char*)&max_size, 4);
 	list_wallet.wallet = new Wallet[max_size];
