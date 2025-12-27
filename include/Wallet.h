@@ -18,6 +18,7 @@ struct Wallet {
 	Category* inc_source;
 	Category* exp_category;
 	
+	void Display();
 	void Display_Income();
 	void Display_Expense();
 	void Display_Source();

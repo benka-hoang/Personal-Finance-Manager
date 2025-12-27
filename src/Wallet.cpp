@@ -1,6 +1,14 @@
 #include"../include/Wallet.h"
 #include"../include/ListWallet.h"
 
+void Wallet::Display(){
+	cout << "Wallet information : -------\n";
+	cout << "     ID : " << id << "\n";
+	cout << "     Balance : " << balance << "\n";
+	cout << "     Name : " << Convert_Char_to_String(name, 20) << "\n";
+	return;
+}
+
 void Wallet::Display_Income(){
 	cout << "List of Income :\n";
 	for (int i = 0; i < size_inc; ++i) {

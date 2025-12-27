@@ -1,5 +1,6 @@
 #pragma once
 #include<fstream>
+#include"StringChar.h"
 #include"Wallet.h"
 
 struct ListWallet{
@@ -12,6 +13,8 @@ struct ListWallet{
 	int Total_Expense(Date start_date, Date end_date);
 	int Total_Balance(Date start_date, Date end_date);
 
+	void Display();
+
 	void SaveData();
 	void LoadData();
 	// Truyen toan bo du lieu -> Binary File
@@ -19,8 +22,3 @@ struct ListWallet{
 
 inline ListWallet list_wallet;
 
-// length = 20 / 50
-void Convert_String_to_Char(char c[], const string &s, int length);
-bool CompareEqual(char a[], char b[], int length);
-void AssignChar(char a[], char b[], int length);
-string Convert_Char_to_String(char c[], int length);

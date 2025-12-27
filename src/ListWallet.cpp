@@ -14,11 +14,22 @@ const int extra_space = 20;
 void ListWallet::Add_Wallet(string name_wallet) {
 	if(size<max_size)
 	{
+		cerr << "Yes\n";
 		wallet[size].Init();
 		wallet[size].id=size;
 		Convert_String_to_Char(wallet[size].name, name_wallet, 20);
-		// Tao ham chuyen string -> char
+		// If size < max_size: No change needed in binary file?
+		// No : Need!
+		// Change size - name
 		size++;
+		ofstream fout("data/data.bin", ios::binary | ios::in);
+		fout.seekp(0);
+		fout.write((char*)&size, 4);
+		fout.seekp(8 + 40 * (size - 1));
+		fout.write((char*)&wallet[size], 40);
+		fout.seekp(8 + 40 * max_size + 20 * (size - 1));
+		fout.write(wallet[size].name, 20);
+		fout.close();
 	}
 	else
 	{
@@ -30,10 +41,13 @@ void ListWallet::Add_Wallet(string name_wallet) {
 		delete[] wallet;
 		wallet = new_list;
 		max_size = max_size + extra_space;
-		wallet[size].Init();
+		for (int i = size; i < max_size; ++i) {
+			wallet[i].Init();
+		}
 		wallet[size].id=size;
 		Convert_String_to_Char(wallet[size].name, name_wallet, 20);
 		size++;
+		SaveData();
 	}
 	return;
 }
@@ -61,6 +75,16 @@ int ListWallet::Total_Expense(Date start_date, Date end_date)
 int ListWallet::Total_Balance(Date start_date, Date end_date)
 {
 	return ListWallet::Total_Income(start_date, end_date) - ListWallet::Total_Expense(start_date, end_date);
+}
+
+void ListWallet::Display(){
+	cout << "All wallet information : \n";
+	cout << "Size : " << size << " - " << max_size << "\n";
+	for (int i = 0; i < size; ++i) {
+		cout << i << ". ";
+		wallet[i].Display();
+	}
+	return;
 }
 
 void ListWallet::SaveData(){
@@ -120,36 +144,4 @@ void ListWallet::LoadData(){
 	cout << "Load data successfully!" << "\n";
 	fin.close();
 	return;
-}
-
-void Convert_String_to_Char(char c[], const string &s, int length) {
-	for (int i = 0; i < s.size(); ++i)
-		c[i] = s[i];
-	for (int i = s.size(); i < length; ++i)
-		c[i] = ' ';
-	return;
-}
-
-bool CompareEqual(char a[], char b[], int length){
-	for (int i = 0; i < length; ++i) if (a[i] != b[i])
-		return false;
-	return true;
-}
-
-void AssignChar(char a[], char b[], int length){
-	for (int i = 0; i < length; ++i)
-		a[i] = b[i];
-	return;
-}
-
-string Convert_Char_to_String(char c[], int length){
-	int pos = length - 1;
-	for (int i = length - 1; i >= 0; --i) if (c[i] != ' ') {
-		pos = i;
-		break;
-	}
-	string s;
-	for (int i = 0; i <= pos; ++i)
-		s.push_back(c[i]);
-	return s;
 }
