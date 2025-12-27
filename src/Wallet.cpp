@@ -80,10 +80,15 @@ void Wallet::Add_Source(string name_source) {
 		delete[] inc_source;
 		inc_source=new_list;
 		max_size_source=max_size_source+extra_space;
+		for(int i = size_inc; i<max_size_inc; ++i)
+		{
+			inc_source[i].Init();
+		}
 		inc_source[size_inc].id=size_inc;
 		Convert_String_to_Char(inc_source[size_source].name, name_source, 20);
 		size_source++;
 	}
+	list_wallet.SaveData();
 	return;
 }
 
@@ -108,6 +113,7 @@ void Wallet::Add_Category(string name_category) {
 		Convert_String_to_Char(exp_category[size_category].name, name_category, 20);
 		size_category++;
 	}
+	list_wallet.SaveData();
 	return;
 }
 
@@ -130,6 +136,7 @@ void Wallet::Add_Income(Date d, int amount, Category source, string des) {
 	for (int i = size_inc - 1; i >= pos; --i) list_inc[i + 1] = list_inc[i];
 	list_inc[pos] = inc;
 	++size_inc;
+	list_wallet.SaveData();
 	return;
 }
 
@@ -164,6 +171,7 @@ void Wallet::Delete_Income_Source(string name)
 	for (int i = 0; i < size_inc; ++i) if (list_inc[i].source.id > id) {
 		list_inc[i].source.id--;
 	}
+	list_wallet.SaveData();
 }
 
 void Wallet::Edit_Income_Source(string name_inc, string name_edit)
@@ -181,6 +189,7 @@ void Wallet::Edit_Income_Source(string name_inc, string name_edit)
 		if (CompareEqual(list_inc[i].source.name, name_inc_char, 20))
 			AssignChar(list_inc[i].source.name, name_edit_char, 20);
 	}
+	list_wallet.SaveData();
 }
 
 void Wallet::Add_Expense(Date d, int amount, Category category, string des) {
@@ -202,6 +211,7 @@ void Wallet::Add_Expense(Date d, int amount, Category category, string des) {
 	for (int i = size_exp - 1; i >= pos; --i) list_exp[i + 1] = list_exp[i];
 	list_exp[pos] = exp;
 	++size_exp;
+	list_wallet.SaveData();
 	return;
 }
 
@@ -234,6 +244,7 @@ void Wallet::Delete_Expense_Category(string name)
 	for (int i = 0; i < size_exp; ++i) if (list_exp[i].category.id > id) {
 		list_exp[i].category.id--;
 	}
+	list_wallet.SaveData();
 }
 
 void Wallet::Edit_Expense_Category(string name_category, string name_edit)
@@ -251,6 +262,7 @@ void Wallet::Edit_Expense_Category(string name_category, string name_edit)
 		if (CompareEqual(list_exp[i].category.name, name_exp_char, 20))
 			AssignChar(list_exp[i].category.name, name_edit_char, 20);
 	}
+	list_wallet.SaveData();
 }
 
 const Date limit_date = { 31, 12, 9999 };
@@ -279,6 +291,7 @@ void Wallet::Add_Recurring(Recurring Recurr)
 			temp.year++;
 		}
 	}
+	list_wallet.SaveData();
 }
 
 int Wallet::Total_Income(Date start_date, Date end_date) {

@@ -14,7 +14,6 @@ const int extra_space = 20;
 void ListWallet::Add_Wallet(string name_wallet) {
 	if(size<max_size)
 	{
-		cerr << "Yes\n";
 		wallet[size].Init();
 		wallet[size].id=size;
 		Convert_String_to_Char(wallet[size].name, name_wallet, 20);
@@ -22,14 +21,6 @@ void ListWallet::Add_Wallet(string name_wallet) {
 		// No : Need!
 		// Change size - name
 		size++;
-		ofstream fout("data/data.bin", ios::binary | ios::in);
-		fout.seekp(0);
-		fout.write((char*)&size, 4);
-		fout.seekp(8 + 40 * (size - 1));
-		fout.write((char*)&wallet[size], 40);
-		fout.seekp(8 + 40 * max_size + 20 * (size - 1));
-		fout.write(wallet[size].name, 20);
-		fout.close();
 	}
 	else
 	{
