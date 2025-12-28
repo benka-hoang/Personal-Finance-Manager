@@ -1,4 +1,4 @@
-#include "../include/UserInterface.h"
+#include"../include/UserInterface.h"
 #include"../include/Date.h"
 #include"../include/Category.h"
 #include"../include/Income.h"
@@ -7,6 +7,7 @@
 #include"../include/ListWallet.h"
 #include"../include/Recurring.h"
 #include"../include/UserInterface.h"
+#include"../include/InputChecker.h"
 #include"cstdlib"
 
 void ClearScreen() {
@@ -26,7 +27,42 @@ void GachNgang() {
 	return;
 }
 
+void GachTransaction() {
+	cout << setfill('='); cout << setw(12) << "=";
+	cout << "Add Transaction";
+	cout << setfill('='); cout << setw(12) << "=";
+	cout << "\n";
+	return;
+}
 void AddTransaction() {
+	ClearScreen();
+	GachTransaction();
+	cout << "Menu: \n";
+	cout << "      " << "0. Back\n";
+	cout << "      " << "1. Add Income\n";
+	cout << "      " << "2. Add Expense\n";
+	cout << "Your option: ";
+	string s; getline(cin, s);
+	while (!CheckOption(s, 0, 2)) {
+		cout << "Invalid option! Please type again : ";
+		getline(cin, s);
+	}
+	int choice = int(s[0]) - int('0');
+	if (choice == 1) {
+		ClearScreen();
+		GachTransaction();
+		string wallet, amount, date, source, des;
+		cout << "Wallet : "; getline(cin, wallet);
+		cout << "Date : "; getline(cin, date);
+		cout << "Amount : "; getline(cin, amount);
+		cout << "Source : "; getline(cin, source);
+		cout << "Description : "; getline(cin, des);
+		IncomeInfo info = CheckIncome(wallet, amount, date, source, des);
+
+	}
+	else if (choice == 2) {
+
+	}
 	return;
 }
 
