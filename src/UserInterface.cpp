@@ -128,6 +128,185 @@ void AddRecurring() {
 }
 
 void WalletManagement() {
+	ClearScreen();
+	cout<<"===========Wallet Management============"<<endl;
+	cout << "Menu: \n";
+	cout << "      " << "0. Back\n";
+	cout << "      " << "1. Add Wallet\n";
+	cout << "      " << "2. Edit Wallet\n";
+	cout << "      " << "3. Delete Wallet\n";
+	cout << "Your option: ";
+	string s; getline(cin, s);
+	while(!CheckOption(s, 0, 3)) {
+		cout<<"Invalid option! Please type again : ";
+		getline(cin, s);
+	}
+	int choice = int(s[0])-int('0');
+	if(choice==0)
+	{
+		ClearScreen();
+		Dashboard();
+	}
+	else if(choice==1)
+	{
+		ClearScreen();
+		cout<<"===========Wallet Management============"<<endl;
+		cout<<"Name your new wallet: ";
+		string name; getline(cin, name);
+		bool existed=false;
+		char name_char[20];
+		Convert_String_to_Char(name_char, name, 20);
+		for(int i=0;i<list_wallet.size;++i)
+		{
+			if(CompareEqual(name_char, list_wallet.wallet[i].name, 20)) 
+			{
+				existed=true;
+				break;
+			} 
+		}
+		while(existed)
+		{
+			existed=false;
+			cout<<"That name was used by another wallet! Please type again : ";
+			getline(cin, name);
+			char name_char[20];
+			Convert_String_to_Char(name_char, name, 20);
+			for(int i=0;i<list_wallet.size;++i)
+			{
+				if(CompareEqual(name_char, list_wallet.wallet[i].name, 20)) 
+				{
+					existed=true;
+					break;
+				} 
+			}
+		}
+		list_wallet.Add_Wallet(name);
+		cout << "Choose 0 to back! "; 
+        string s_choice;
+        getline(cin, s_choice);
+
+        // Check nhập đúng số 0
+        while(!CheckOption(s_choice, 0, 0)) {
+            cout << "Invalid option! Please type again (0 to back): ";
+            getline(cin, s_choice);
+        }
+
+        // 2. Sửa đúng tên biến: s_choice
+        int back_choice = int(s_choice[0]) - int('0');
+        
+        if(back_choice == 0) {
+            WalletManagement(); // Gọi lại hàm để hiện Menu
+            return;
+		}
+	}
+	else if(choice==2)
+	{
+		ClearScreen();
+		cout<<"===========Wallet Management============"<<endl;
+		for(int i=0;i<list_wallet.size;++i)
+		{
+			cout<<i<<". "<<list_wallet.wallet[i].name<<endl;
+		}
+		cout<<"Choose a wallet you would like to edit : ";
+		string old_name; getline(cin, old_name);
+		char name_char[20];
+		Convert_String_to_Char(name_char, old_name, 20);
+		bool existed=false;
+		for(int i=0;i<list_wallet.size;++i) 
+		{
+			if(CompareEqual(name_char, list_wallet.wallet[i].name, 20))
+			{
+				existed=true;
+				break;
+			}
+		}
+		while(!existed)
+		{
+			cout<<"Cannot find that wallets' name! Please type again : ";
+			getline(cin, old_name);
+			char name_char[20];
+			Convert_String_to_Char(name_char, old_name, 20);
+			for(int i=0;i<list_wallet.size;++i)
+			{
+				if(CompareEqual(name_char, list_wallet.wallet[i].name, 20)) 
+				{
+					existed=true;
+					break;
+				} 
+			}
+		}
+		cout<<"Rename your selected wallet: ";
+		string new_name; getline(cin, new_name);
+		list_wallet.Edit_Wallet(old_name, new_name);
+		cout << "Choose 0 to back! "; 
+        string s_choice;
+        getline(cin, s_choice);
+
+        while(!CheckOption(s_choice, 0, 0)) {
+            cout << "Invalid option! Please type again (0 to back): ";
+            getline(cin, s_choice);
+        }
+
+        int back_choice = int(s_choice[0]) - int('0');
+        
+        if(back_choice == 0) {
+            WalletManagement();
+            return;
+		}
+	}
+	else if(choice==3)
+	{
+		ClearScreen();
+		cout<<"===========Wallet Management============"<<endl;
+		for(int i=0;i<list_wallet.size;++i)
+		{
+			cout<<i<<". "<<list_wallet.wallet[i].name<<endl;
+		}
+		cout<<"Choose a wallet you would like to delete : ";
+		string old_name; getline(cin, old_name);
+		char name_char[20];
+		Convert_String_to_Char(name_char, old_name, 20);
+		bool existed=false;
+		for(int i=0;i<list_wallet.size;++i) 
+		{
+			if(CompareEqual(name_char, list_wallet.wallet[i].name, 20))
+			{
+				existed=true;
+				break;
+			}
+		}
+		while(!existed)
+		{
+			cout<<"Cannot find that wallets' name! Please type again : ";
+			getline(cin, old_name);
+			char name_char[20];
+			Convert_String_to_Char(name_char, old_name, 20);
+			for(int i=0;i<list_wallet.size;++i)
+			{
+				if(CompareEqual(name_char, list_wallet.wallet[i].name, 20)) 
+				{
+					existed=true;
+					break;
+				} 
+			}
+		}
+		list_wallet.Delete_Wallet(old_name);
+		cout << "Choose 0 to back! "; 
+        string s_choice;
+        getline(cin, s_choice);
+
+        while(!CheckOption(s_choice, 0, 0)) {
+            cout << "Invalid option! Please type again (0 to back): ";
+            getline(cin, s_choice);
+        }
+
+        int back_choice = int(s_choice[0]) - int('0');
+        
+        if(back_choice == 0) {
+            WalletManagement();
+            return;
+		}
+	}
 	return;
 }
 
@@ -325,7 +504,7 @@ void Statistics() {
 		}
 		else if(Choice==1)
 		{
-			cout<<"===========Net balance changes===========";
+			cout<<"===========Net balance changes==========="<<endl;
 			cout<<"How many years do you want to select? ";
 			int size; cin>>size;
 			int* year = new int [size];
