@@ -9,6 +9,7 @@ struct Expense {
 	char des[50];
 
 	void Display();
+	void DisplayUI(int id_wallet);
 	void Init();
 };
 

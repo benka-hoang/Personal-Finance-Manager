@@ -362,8 +362,8 @@ int * Wallet::Annual_Income_Source(int n, int * year){
 }
 
 int * Wallet::Annual_Expense_Category(int n, int * year){
-	int *sum_exp_source = new int[size_source];
-	for (int i = 0; i < size_source; ++i)
+	int *sum_exp_source = new int[size_category];
+	for (int i = 0; i < size_category; ++i)
 		sum_exp_source[i] = 0;
 	for (int i = 0; i < size_exp; ++i) if (Belong_to_Years(&list_exp[i].d, n, year)) {
 		sum_exp_source[list_exp[i].category.id] += list_exp[i].amount;

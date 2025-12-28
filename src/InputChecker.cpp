@@ -91,6 +91,85 @@ IncomeInfo CheckIncome(string wallet, string amount, string date, string source,
 	return info;
 }
 
+ExpenseInfo CheckExpense(string wallet, string amount, string date, string category, string des)
+{
+	ExpenseInfo info; info.Init();
+	Expense& exp = info.exp;
+	if (wallet.size() == 0 || amount.size() == 0 || date.size() == 0 || category.size() == 0 || des.size() == 0) {
+		info.case_in = 1;
+		return info;
+	}
+	if (wallet[0] == '#') {
+		info.case_in = 2;
+		if (wallet.size() == 1) return info;
+		for (int i = 1; i < wallet.size(); ++i) if (!('0' <= wallet[i] && wallet[i] <= '9'))
+			return info;
+		info.id_wallet = 0;
+		for (int i = 1; i < wallet.size(); ++i) {
+			int c = wallet[i] - int('0');
+			info.id_wallet = info.id_wallet * 10 + c;
+			if (info.id_wallet >= list_wallet.size) return info;
+		}
+	}
+	else {
+		info.case_in = 3;
+		char str[20];
+		Convert_String_to_Char(str, wallet, 20);
+		for (int i = 0; i < list_wallet.size; ++i) if (CompareEqual(list_wallet.wallet[i].name, str, 20)) {
+			info.id_wallet = i;
+			break;
+		}
+		if (info.id_wallet == -1) return info;
+	}
+	info.case_in = 4;
+	for (int i = 0; i < amount.size(); ++i) if (!('0' <= amount[i] && amount[i] <= '9'))
+		return info;
+	info.case_in = 5;
+	for (int i = 0; i < amount.size(); ++i) {
+		int c = amount[i] - int('0');
+		exp.amount = exp.amount * 10 + c;
+		if (exp.amount > max_amount) return info;
+	}
+	Wallet& wall = list_wallet.wallet[info.id_wallet];
+	if (category[0] == '#') {
+		info.case_in = 6;
+		if (category.size() == 1) return info;
+		for (int i = 1; i < category.size(); ++i) if (!('0' <= category[i] && category[i] <= '9'))
+			return info;
+		exp.category.id = 0;
+		for (int i = 1; i < category.size(); ++i) {
+			int c = category[i] - int('0');
+			exp.category.id = exp.category.id * 10 + c;
+			if (exp.category.id >= wall.size_exp) return info;
+		}
+		exp.category = wall.exp_category[exp.category.id];
+	}
+	else {
+		info.case_in = 7;
+		char str[20];
+		Convert_String_to_Char(str, category, 20);
+		exp.category.id = -1;
+		for (int i = 0; i < wall.size_category; ++i) if (CompareEqual(wall.exp_category[i].name, str, 20)) {
+			exp.category.id = i;
+			break;
+		}
+		if (exp.category.id == -1) return info;
+		exp.category = wall.exp_category[exp.category.id];
+	}
+	info.case_in = 8;
+	if (des.size() > 50) return info;
+	Convert_String_to_Char(exp.des, des, 50);
+	info.case_in = 9;
+	if (!CheckDateFormat(date)) return info;
+	info.case_in = 10;
+	exp.d = ConvertStringToDate(date);
+	if (!CheckDate(exp.d)) return info;
+	info.case_in = 0;
+	return info;
+}
+
+RecurringInfo CheckRecurr();
+
 void Output_Notification_Income(int case_in){
 	if (case_in == 1) {
 		cout << "Error input: Input fields cannot be empty. Please fill in all details." << '\n';
