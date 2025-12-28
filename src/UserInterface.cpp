@@ -63,7 +63,7 @@ void AddIncome() {
 		cout << "Confirm (y/n) : "; string s; getline(cin, s);
 		while (!(s.size() == 1 && (s[0] == 'y' || s[0] == 'n'))) {
 			cout << "Invalid option! Please type again (y/n): ";
-			string s; getline(cin, s);
+			getline(cin, s);
 		}
 		if (s[0] == 'y') {
 			cout << "Income transaction added successfully!";
@@ -84,7 +84,7 @@ void AddIncome() {
 		string s; getline(cin, s);
 		while (!(s.size() == 1 && (s[0] == 'y' || s[0] == 'n'))) {
 			cout << "Invalid option! Please type again (y/n): ";
-			string s; getline(cin, s);
+			getline(cin, s);
 		}
 		if (s[0] == 'y') {
 			AddIncome();
@@ -116,17 +116,17 @@ void AddExpense() {
 		cout << "Confirm (y/n) : "; string s; getline(cin, s);
 		while (!(s.size() == 1 && (s[0] == 'y' || s[0] == 'n'))) {
 			cout << "Invalid option! Please type again (y/n): ";
-			string s; getline(cin, s);
+			getline(cin, s);
 		}
 		if (s[0] == 'y') {
-			cout << "Income transaction added successfully!";
+			cout << "Expense transaction added successfully!";
 			Expense& exp = info.exp;
 			list_wallet.wallet[info.id_wallet].Add_Expense(exp.d, exp.amount, exp.category, Convert_Char_to_String(exp.des, 50));
 			Wait();
 			AddTransaction();
 		}
 		else {
-			cout << "Income transaction canceled!";
+			cout << "Expense transaction canceled!";
 			Wait();
 			AddTransaction();
 		}
@@ -137,7 +137,7 @@ void AddExpense() {
 		string s; getline(cin, s);
 		while (!(s.size() == 1 && (s[0] == 'y' || s[0] == 'n'))) {
 			cout << "Invalid option! Please type again (y/n): ";
-			string s; getline(cin, s);
+			getline(cin, s);
 		}
 		if (s[0] == 'y') {
 			AddExpense();
@@ -149,21 +149,60 @@ void AddExpense() {
 	return;
 }
 
-//void AddRecurring() {
-//	ClearScreen();
-//	GachTransaction();
-//	string wallet, name, start_date, end_date, type, amount, category;
-//	cout << "Wallet : "; getline(cin, wallet);
-//	cout << "Name : "; getline(cin, name);
-//	cout << "Start Date : "; getline(cin, start_date);
-//	cout << "End Date (Optional) : "; getline(cin, end_date);
-//	cout << "Type : "; getline(cin, type);
-//	cout << "Amount : "; getline(cin, amount);
-//	cout << "Category : "; getline(cin, category);
-//	GachNgang();
-//
-//	return;
-//}
+void AddRecurring() {
+	ClearScreen();
+	GachTransaction();
+	string wallet, name, start_date, end_date, type, amount, category;
+	cout << "Wallet : "; getline(cin, wallet);
+	cout << "Name : "; getline(cin, name);
+	cout << "Start Date : "; getline(cin, start_date);
+	cout << "End Date (Optional) : "; getline(cin, end_date);
+	cout << "Type (-1 : Income, +1 : Expense) : "; getline(cin, type);
+	cout << "Amount : "; getline(cin, amount);
+	cout << "Category : "; getline(cin, category);
+	GachNgang();
+	RecurringInfo info = CheckRecurr(wallet, name, start_date, end_date, type, amount, category);
+	int case_in = info.case_in;
+	if (case_in == 0) {
+		cout << "Your information is correct!\n";
+		cout << "Please re - check:\n";
+		info.recurr.DisplayUI(info.id_wallet);
+		GachNgang();
+		cout << "Confirm (y/n) : "; string s; getline(cin, s);
+		while (!(s.size() == 1 && (s[0] == 'y' || s[0] == 'n'))) {
+			cout << "Invalid option! Please type again (y/n): ";
+			getline(cin, s);
+		}
+		if (s[0] == 'y') {
+			cout << "Recurring added successfully!";
+			Recurring& recurr = info.recurr;
+			list_wallet.wallet[info.id_wallet].Add_Recurring(recurr);
+			Wait();
+			AddTransaction();
+		}
+		else {
+			cout << "Add-recurring canceled!";
+			Wait();
+			AddTransaction();
+		}
+	}
+	else {
+		Output_Notification_Recurring(case_in);
+		cout << "Re-input (y/n) : ";
+		string s; getline(cin, s);
+		while (!(s.size() == 1 && (s[0] == 'y' || s[0] == 'n'))) {
+			cout << "Invalid option! Please type again (y/n): ";
+			getline(cin, s);
+		}
+		if (s[0] == 'y') {
+			AddRecurring();
+		}
+		else {
+			AddTransaction();
+		}
+	}
+	return;
+}
 
 void AddTransaction() {
 	ClearScreen();
@@ -191,13 +230,8 @@ void AddTransaction() {
 		AddExpense();
 	}
 	else if (choice == 3) {
-		Recurring();
+		AddRecurring();
 	}
-	return;
-}
-
-void AddRecurring() {
-
 	return;
 }
 
@@ -763,18 +797,15 @@ void Dashboard() {
 		AddTransaction();
 	}
 	else if(choice == 2) {
-		AddRecurring();
-	}
-	else if(choice == 3) {
 		WalletManagement();
 	}
-	else if(choice == 4) {
+	else if(choice == 3) {
 		Statistics();
 	}
-	else if (choice == 5) {
+	else if (choice == 4) {
 		Settings();
 	} 
-	else if (choice == 6) {
+	else if (choice == 5) {
 		ClearScreen();
 		cout << "See you later...\n";
 	}

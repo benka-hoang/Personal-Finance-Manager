@@ -20,6 +20,8 @@ struct Recurring {
 		category.Init();
 		return;
 	}
+
+	void DisplayUI(int id_wallet);
 };
 
 Recurring Info_to_Recurring(string name, Date start_date, Date end_date, int type, int amount, Category category);

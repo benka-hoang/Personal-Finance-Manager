@@ -40,4 +40,6 @@ struct RecurringInfo {
 
 IncomeInfo CheckIncome(string wallet, string amount, string date, string source, string des);
 ExpenseInfo CheckExpense(string wallet, string amount, string date, string category, string des);
+RecurringInfo CheckRecurr(string wallet, string name, string start_date, string end_date, string type, string amount, string category);
 void Output_Notification_Income(int case_in);
+void Output_Notification_Recurring(int case_in);
