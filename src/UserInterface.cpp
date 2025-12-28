@@ -313,7 +313,7 @@ void WalletManagement() {
 		cout<<"===========Wallet Management============"<<endl;
 		for(int i=0;i<list_wallet.size;++i)
 		{
-			cout<<i<<". "<<list_wallet.wallet[i].name<<endl;
+			cout<<i<<". "<< Convert_Char_to_String(list_wallet.wallet[i].name, 20) <<endl;
 		}
 		cout<<"Choose a wallet you would like to edit : ";
 		string old_name; getline(cin, old_name);
@@ -345,6 +345,33 @@ void WalletManagement() {
 		}
 		cout<<"Rename your selected wallet: ";
 		string new_name; getline(cin, new_name);
+		bool exist = false;
+		char new_name_char[20];
+		Convert_String_to_Char(new_name_char, new_name, 20);
+		for (int i = 0; i < list_wallet.size; ++i)
+		{
+			if (CompareEqual(new_name_char, list_wallet.wallet[i].name, 20))
+			{
+				exist = true;
+				break;
+			}
+		}
+		while (exist)
+		{
+			exist = false;
+			cout << "That name was used by another wallet! Please type again : ";
+			getline(cin, new_name);
+			char name_char[20];
+			Convert_String_to_Char(new_name_char, new_name, 20);
+			for (int i = 0; i < list_wallet.size; ++i)
+			{
+				if (CompareEqual(new_name_char, list_wallet.wallet[i].name, 20))
+				{
+					exist = true;
+					break;
+				}
+			}
+		}
 		list_wallet.Edit_Wallet(old_name, new_name);
 		cout << "Choose 0 to back! "; 
         string s_choice;
