@@ -7,6 +7,7 @@
 #include"../include/ListWallet.h"
 #include"../include/Recurring.h"
 #include"../include/UserInterface.h"
+#include"cstdlib"
 
 void ClearScreen() {
 	system("cls");
