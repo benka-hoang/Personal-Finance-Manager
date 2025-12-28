@@ -451,14 +451,14 @@ void AddSource() {
 	for (int i = 0; i < list_wallet.size; ++i) {
 		cout << "      "<< i << ". " << Convert_Char_to_String(list_wallet.wallet[i].name, 20) << "\n";
 	}
-	cout << "Name wallet : "; string s; cin >> s;
+	cout << "Name wallet : "; string s; getline(cin, s);
 	int id_wallet = -1;
 	char str[20]; Convert_String_to_Char(str, s, 20);
 	for (int i = 0; i < list_wallet.size; ++i) if (CompareEqual(str, list_wallet.wallet[i].name, 20)) {
 		id_wallet = i;
 		break;
 	}
-	cout << "Name source : "; string name; cin >> name;
+	cout << "Name source : "; string name; getline(cin, name);
 	list_wallet.wallet[id_wallet].Add_Source(name);
 	cout << "Add source successfully!\n";
 	Wait();
@@ -472,14 +472,14 @@ void AddCategory() {
 	for (int i = 0; i < list_wallet.size; ++i) {
 		cout << "      " << i << ". " << Convert_Char_to_String(list_wallet.wallet[i].name, 20) << "\n";
 	}
-	cout << "Name wallet : "; string s; cin >> s;
+	cout << "Name wallet : "; string s; getline(cin, s);
 	int id_wallet = -1;
 	char str[20]; Convert_String_to_Char(str, s, 20);
 	for (int i = 0; i < list_wallet.size; ++i) if (CompareEqual(str, list_wallet.wallet[i].name, 20)) {
 		id_wallet = i;
 		break;
 	}
-	cout << "Name category : "; string name; cin >> name;
+	cout << "Name category : "; string name; getline(cin, name);
 	list_wallet.wallet[id_wallet].Add_Category(name);
 	cout << "Add category successfully!\n";
 	Wait();
@@ -493,7 +493,7 @@ void DeleteSource() {
 	for (int i = 0; i < list_wallet.size; ++i) {
 		cout << "      " << i << ". " << Convert_Char_to_String(list_wallet.wallet[i].name, 20) << "\n";
 	}
-	cout << "Name wallet : "; string s; cin >> s;
+	cout << "Name wallet : "; string s; getline(cin, s);
 	int id_wallet = -1;
 	char str[20]; Convert_String_to_Char(str, s, 20);
 	for (int i = 0; i < list_wallet.size; ++i) if (CompareEqual(str, list_wallet.wallet[i].name, 20)) {
@@ -505,7 +505,7 @@ void DeleteSource() {
 	for (int i = 0; i < wallet.size_source; ++i) {
 		cout << "      " << i << ". " << Convert_Char_to_String(wallet.inc_source[i].name, 20) << "\n";
 	}
-	cout << "Name source : "; string name; cin >> name;
+	cout << "Name source : "; string name; getline(cin, name);
 	list_wallet.wallet[id_wallet].Delete_Income_Source(name);
 	cout << "Delete source successfully!\n";
 	Wait();
@@ -519,7 +519,7 @@ void DeleteCategory() {
 	for (int i = 0; i < list_wallet.size; ++i) {
 		cout << "      " << i << ". " << Convert_Char_to_String(list_wallet.wallet[i].name, 20) << "\n";
 	}
-	cout << "Name wallet : "; string s; cin >> s;
+	cout << "Name wallet : "; string s; getline(cin, s);
 	int id_wallet = -1;
 	char str[20]; Convert_String_to_Char(str, s, 20);
 	for (int i = 0; i < list_wallet.size; ++i) if (CompareEqual(str, list_wallet.wallet[i].name, 20)) {
@@ -531,7 +531,7 @@ void DeleteCategory() {
 	for (int i = 0; i < wallet.size_category; ++i) {
 		cout << "      " << i << ". " << Convert_Char_to_String(wallet.exp_category[i].name, 20) << "\n";
 	}
-	cout << "Name source : "; string name; cin >> name;
+	cout << "Name category : "; string name; getline(cin, name);
 	list_wallet.wallet[id_wallet].Delete_Expense_Category(name);
 	cout << "Delete category successfully!\n";
 	Wait();
@@ -540,11 +540,56 @@ void DeleteCategory() {
 }
 
 void EditSource() {
+	ClearScreen();
+	cout << "List of wallets :\n";
+	for (int i = 0; i < list_wallet.size; ++i) {
+		cout << "      " << i << ". " << Convert_Char_to_String(list_wallet.wallet[i].name, 20) << "\n";
+	}
+	cout << "Name wallet : "; string s; getline(cin, s);
+	int id_wallet = -1;
+	char str[20]; Convert_String_to_Char(str, s, 20);
+	for (int i = 0; i < list_wallet.size; ++i) if (CompareEqual(str, list_wallet.wallet[i].name, 20)) {
+		id_wallet = i;
+		break;
+	}
+	cout << "List of sources :\n";
+	Wallet& wallet = list_wallet.wallet[id_wallet];
+	for (int i = 0; i < wallet.size_source; ++i) {
+		cout << "      " << i << ". " << Convert_Char_to_String(wallet.inc_source[i].name, 20) << "\n";
+	}
+	cout << "Old Name source : "; string old_name; getline(cin, old_name);
+	cout << "New Name source : "; string new_name; getline(cin, new_name);
+	list_wallet.wallet[id_wallet].Edit_Income_Source(old_name, new_name);
+	cout << "Edit source successfully!\n";
+	Wait();
+	CategoryManagement();
 	return;
 }
 
 void EditCategory() {
-	
+	ClearScreen();
+	cout << "List of wallets :\n";
+	for (int i = 0; i < list_wallet.size; ++i) {
+		cout << "      " << i << ". " << Convert_Char_to_String(list_wallet.wallet[i].name, 20) << "\n";
+	}
+	cout << "Name wallet : "; string s; getline(cin, s);
+	int id_wallet = -1;
+	char str[20]; Convert_String_to_Char(str, s, 20);
+	for (int i = 0; i < list_wallet.size; ++i) if (CompareEqual(str, list_wallet.wallet[i].name, 20)) {
+		id_wallet = i;
+		break;
+	}
+	cout << "List of categories :\n";
+	Wallet& wallet = list_wallet.wallet[id_wallet];
+	for (int i = 0; i < wallet.size_category; ++i) {
+		cout << "      " << i << ". " << Convert_Char_to_String(wallet.exp_category[i].name, 20) << "\n";
+	}
+	cout << "Old Name Category: "; string old_name; getline(cin, old_name);
+	cout << "New Name Category: "; string new_name; getline(cin, new_name);
+	list_wallet.wallet[id_wallet].Edit_Expense_Category(old_name, new_name);
+	cout << "Edit category successfully!\n";
+	Wait();
+	CategoryManagement();
 	return;
 }
 
@@ -560,7 +605,7 @@ void CategoryManagement() {
 	cout << "      " << "5. Edit Source\n";
 	cout << "      " << "6. Edit Category\n";
 	cout << "Your option : ";
-	int choice; cin >> choice;
+	int choice; cin >> choice; cin.ignore();
 	if (choice == 0) {
 		Dashboard();
 	} 
