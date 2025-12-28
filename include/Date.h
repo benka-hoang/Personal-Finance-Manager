@@ -61,3 +61,9 @@ bool DateEqual(Date *a, Date *b);
 Date Today();
 
 bool Belong_to_Years(Date* d, int n, int* year);
+
+bool Belong_to_Month(Date d);
+
+Date ConvertStringToDate(string s);
+
+bool CheckDate(Date d);

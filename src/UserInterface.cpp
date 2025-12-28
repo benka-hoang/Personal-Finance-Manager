@@ -39,6 +39,95 @@ void WalletManagement() {
 }
 
 void Statistics() {
+	ClearScreen();
+	cout<<"===============Statistics==============="<<endl;
+	cout << "Menu: \n";
+	cout << "      " << "0. Back\n";
+	cout << "      " << "1. Time-based statistics\n";
+	cout << "      " << "2. Wallet-based statistics\n";
+	cout << "      " << "3. Annual overview\n";
+	cout << "Your option: ";
+	string s; getline(cin, s);
+	while(!CheckOption(s, 0, 3)) {
+		cout<<"Invalid option! Please type again : ";
+		getline(cin, s);
+	}
+	int choice = int(s[0])-int('0');
+	if(choice==0) {
+		ClearScreen();
+		Dashboard();
+	}
+	if(choice == 1) {
+		ClearScreen();
+		cout<<"===============Statistics==============="<<endl;
+		cout<<"Display income, expense and balance from Date A to Date B"<<endl;
+		cout<<"Type in date A (DD/MM/YYYY): "<<endl;
+		string s;
+		getline(cin, s);
+		Date d1=ConvertStringToDate(s);
+		while(!CheckDate(d1))
+		{
+			cin.ignore();
+			getline(cin, s);
+			d1=ConvertStringToDate(s);
+		}
+		Date d2;
+		cout<<"Type in date B: "<<endl;
+		cout<<"Do you want to use today's date? (y/n) ";
+		char c; cin>>c;
+		while(c!='y'&&c!='n') 
+		{
+			cout<<"Invalid choice! Please type again : ";
+			cin>>c;
+		}
+		if(c=='y')
+		{
+			d2=Today();
+		}
+		else if(c=='n')
+		{
+			cout<<"Type in date B (DD/MM/YYYY): "<<endl;
+			string s2;
+			cin.ignore();
+			getline(cin, s2);
+			d2=ConvertStringToDate(s2);
+			while(!CheckDate(d2))
+			{
+				cin.ignore();
+				getline(cin, s2);
+				d2=ConvertStringToDate(s2);
+			}
+		}
+		cout<<"Total income from "<<d1.day<<"/"<<d1.month<<"/"<<d1.year<<" to "<<d2.day<<"/"<<d2.month<<"/"<<d2.year<<" is "<<list_wallet.Total_Income(d1, d2)<<endl;
+		cout<<"Total expense from "<<d1.day<<"/"<<d1.month<<"/"<<d1.year<<" to "<<d2.day<<"/"<<d2.month<<"/"<<d2.year<<" is "<<list_wallet.Total_Expense(d1, d2)<<endl;
+		cout<<"Total balance from "<<d1.day<<"/"<<d1.month<<"/"<<d1.year<<" to "<<d2.day<<"/"<<d2.month<<"/"<<d2.year<<" is "<<list_wallet.Total_Balance(d1, d2)<<endl;
+		if (c == 'y') {
+            cin.ignore();
+        }
+        cout << "Choose 0 to back! "; 
+        string s_choice;
+        getline(cin, s_choice);
+
+        // Check nhập đúng số 0
+        while(!CheckOption(s_choice, 0, 0)) {
+            cout << "Invalid option! Please type again (0 to back): ";
+            getline(cin, s_choice);
+        }
+
+        // 2. Sửa đúng tên biến: s_choice
+        int back_choice = int(s_choice[0]) - int('0');
+        
+        if(back_choice == 0) {
+            Statistics(); // Gọi lại hàm để hiện Menu
+            return;
+		}
+	}
+	else if (choice == 2) {
+
+	}
+	else if (choice == 3) {
+
+	}
 	return;
 }
 

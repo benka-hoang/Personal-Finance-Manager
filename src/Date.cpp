@@ -176,3 +176,47 @@ bool Belong_to_Years(Date * d, int n, int * year){
 		return true;
 	return false;
 }
+
+bool Belong_to_Month(Date d)
+{
+	int days_of_month[12]={31, 28, 31, 30, 31, 30 ,31 , 31, 30, 31, 30, 31};
+	if(d.month<1||d.month>12) return false;
+	int max_day=days_of_month[d.month-1];
+	if(d.month==2&&isLeap(d.year)) max_day=29;
+	if(d.day>max_day) return false;
+	return true;
+}
+
+Date ConvertStringToDate(string s)
+{
+	Date d;
+	d.day=0;
+	d.month=0;
+	d.year=0;
+	int start=0;
+	while(s[start]!='/')
+	{
+		d.day=d.day*10+int(s[start])-int('0');
+		start++;
+	}
+	start++;
+	while(s[start]!='/')
+	{
+		d.month=d.month*10+int(s[start])-int('0');
+		start++;
+	}
+	start++;
+	while(start<s.size())
+	{
+		d.year=d.year*10+int(s[start])-int('0');
+		start++;
+	}
+	return d;
+}
+
+bool CheckDate(Date d)
+{
+	if(d.year<0) return false;
+	if(d.day<0||!Belong_to_Month(d)) return false;
+	return true;
+}
