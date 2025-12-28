@@ -156,7 +156,7 @@ void Wallet::Delete_Income_Source(string name)
 	int id = -1;
 	for(int i=0;i<size_source;++i)
 	{
-		if(inc_source[i].name==name) 
+		if(CompareEqual(inc_source[i].name, name_char, 20))
 		{
 			for(int j=i;j<size_source-1;++j) 
 			{
@@ -164,6 +164,7 @@ void Wallet::Delete_Income_Source(string name)
 				inc_source[j].id=j;
 			}
 			id = i;
+			break;
 		}
 	}
 	if (id == -1) return;
@@ -229,7 +230,7 @@ void Wallet::Delete_Expense_Category(string name)
 	int id = -1;
 	for(int i=0;i<size_category;++i)
 	{
-		if(exp_category[i].name==name)
+		if(CompareEqual(exp_category[i].name, name_char, 20))
 		{
 			for(int j=i;j<size_category-1;++j) 
 			{
@@ -237,6 +238,7 @@ void Wallet::Delete_Expense_Category(string name)
 				exp_category[j].id=j;
 			}
 			id = i;
+			break;
 		}
 	}
 	if (id == -1) return;
