@@ -17,6 +17,7 @@ void DefaultProgram();
 
 int main() {
 	UI();
+	return 0;
 }
 
 void DefaultProgram() {
@@ -98,6 +99,7 @@ void CreateSampleData() {
 	w3.Add_Category("Flight");      // index 1
 	w3.Add_Category("Hotel");       // index 2
 	w3.Add_Category("Visa");        // index 3
+	cout << w3.size_category << "\n";
 
 	// Income
 	w3.Add_Income({ 5, 4, 2024 }, 3000000, w3.inc_source[1], "Project Payment");

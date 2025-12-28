@@ -58,7 +58,7 @@ void AddIncome() {
 	if (case_in == 0) {
 		cout << "Your information is correct!\n";
 		cout << "Please re - check:\n";
-		info.inc.Display();
+		info.inc.DisplayUI(info.id_wallet);
 		GachNgang();
 		cout << "Confirm (y/n) : "; string s; getline(cin, s);
 		while (!(s.size() == 1 && (s[0] == 'y' || s[0] == 'n'))) {
@@ -68,7 +68,7 @@ void AddIncome() {
 		if (s[0] == 'y') {
 			cout << "Income transaction added successfully!";
 			Income& inc = info.inc;
-			list_wallet.wallet[info.id_wallet].Add_Income(inc.d, inc.amount, inc.source, inc.des);
+			list_wallet.wallet[info.id_wallet].Add_Income(inc.d, inc.amount, inc.source, Convert_Char_to_String(inc.des, 50));
 			Wait();
 			AddTransaction();
 		}
@@ -96,6 +96,75 @@ void AddIncome() {
 	return;
 }
 
+void AddExpense() {
+	ClearScreen();
+	GachTransaction();
+	string wallet, amount, date, category, des;
+	cout << "Wallet : "; getline(cin, wallet);
+	cout << "Date : "; getline(cin, date);
+	cout << "Amount : "; getline(cin, amount);
+	cout << "Source : "; getline(cin, category);
+	cout << "Description : "; getline(cin, des);
+	GachNgang();
+	ExpenseInfo info = CheckExpense(wallet, amount, date, category, des);
+	int case_in = info.case_in;
+	if (case_in == 0) {
+		cout << "Your information is correct!\n";
+		cout << "Please re - check:\n";
+		info.exp.DisplayUI(info.id_wallet);
+		GachNgang();
+		cout << "Confirm (y/n) : "; string s; getline(cin, s);
+		while (!(s.size() == 1 && (s[0] == 'y' || s[0] == 'n'))) {
+			cout << "Invalid option! Please type again (y/n): ";
+			string s; getline(cin, s);
+		}
+		if (s[0] == 'y') {
+			cout << "Income transaction added successfully!";
+			Expense& exp = info.exp;
+			list_wallet.wallet[info.id_wallet].Add_Expense(exp.d, exp.amount, exp.category, Convert_Char_to_String(exp.des, 50));
+			Wait();
+			AddTransaction();
+		}
+		else {
+			cout << "Income transaction canceled!";
+			Wait();
+			AddTransaction();
+		}
+	}
+	else {
+		Output_Notification_Income(case_in);
+		cout << "Re-input (y/n) : ";
+		string s; getline(cin, s);
+		while (!(s.size() == 1 && (s[0] == 'y' || s[0] == 'n'))) {
+			cout << "Invalid option! Please type again (y/n): ";
+			string s; getline(cin, s);
+		}
+		if (s[0] == 'y') {
+			AddExpense();
+		}
+		else {
+			AddTransaction();
+		}
+	}
+	return;
+}
+
+//void AddRecurring() {
+//	ClearScreen();
+//	GachTransaction();
+//	string wallet, name, start_date, end_date, type, amount, category;
+//	cout << "Wallet : "; getline(cin, wallet);
+//	cout << "Name : "; getline(cin, name);
+//	cout << "Start Date : "; getline(cin, start_date);
+//	cout << "End Date (Optional) : "; getline(cin, end_date);
+//	cout << "Type : "; getline(cin, type);
+//	cout << "Amount : "; getline(cin, amount);
+//	cout << "Category : "; getline(cin, category);
+//	GachNgang();
+//
+//	return;
+//}
+
 void AddTransaction() {
 	ClearScreen();
 	GachTransaction();
@@ -103,9 +172,10 @@ void AddTransaction() {
 	cout << "      " << "0. Back\n";
 	cout << "      " << "1. Add Income\n";
 	cout << "      " << "2. Add Expense\n";
+	cout << "      " << "3. Add Recurring\n";
 	cout << "Your option: ";
 	string s; getline(cin, s);
-	while (!CheckOption(s, 0, 2)) {
+	while (!CheckOption(s, 0, 3)) {
 		cout << "Invalid option! Please type again : ";
 		getline(cin, s);
 	}
@@ -118,12 +188,16 @@ void AddTransaction() {
 		AddIncome();
 	}
 	else if (choice == 2) {
-
+		AddExpense();
+	}
+	else if (choice == 3) {
+		Recurring();
 	}
 	return;
 }
 
 void AddRecurring() {
+
 	return;
 }
 
@@ -661,6 +735,7 @@ void Settings() {
 }
 
 void Dashboard() {
+	ClearScreen();
 	cout << "Hi, "; cout << Convert_Char_to_String(list_wallet.user_name, 32) << "!\n";
 	GachNgang();
 	cout << "Total balance: " << list_wallet.Total_Balance({ 1, 1, 1 }, Today()) << "\n";
@@ -672,11 +747,10 @@ void Dashboard() {
 	GachNgang(); 
 	cout << "Menu: \n";
 	cout << "      " << "1. Add Transaction \n";
-	cout << "      " << "2. Add Recurring \n";
-	cout << "      " << "3. Wallet Management \n";
-	cout << "      " << "4. Statistics \n";
-	cout << "      " << "5. Settings \n";
-	cout << "      " << "6. Exit \n";
+	cout << "      " << "2. Wallet Management \n";
+	cout << "      " << "3. Statistics \n";
+	cout << "      " << "4. Settings \n";
+	cout << "      " << "5. Exit \n";
 	
 	cout << "Your option: ";
 	string s; getline(cin, s);

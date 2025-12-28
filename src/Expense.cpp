@@ -16,7 +16,17 @@ void Expense::Display() {
 	cout << "     Date : "; d.OutputConsole();
 	cout << "     Amount : "; cout << amount << "\n";
 	cout << "     Source : "; category.Display();
-	cout << "     Descrip : "; cout << Convert_Char_to_String(des, 50) << "\n";
+	cout << "     Description : "; cout << Convert_Char_to_String(des, 50) << "\n";
+	return;
+}
+
+void Expense::DisplayUI(int id_wallet){
+	cout << "Expense Information : ---------\n";
+	cout << "     Wallet : "; cout << id_wallet << " " << Convert_Char_to_String(list_wallet.wallet[id_wallet].name, 20) << "\n";
+	cout << "     Date : "; d.OutputConsole();
+	cout << "     Amount : "; cout << amount << "\n";
+	cout << "     Source : "; category.Display();
+	cout << "     Description : "; cout << Convert_Char_to_String(des, 50) << "\n";
 	return;
 }
 
