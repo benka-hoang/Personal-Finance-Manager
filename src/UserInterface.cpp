@@ -26,6 +26,22 @@ void GachNgang() {
 	return;
 }
 
+void AddTransaction() {
+	return;
+}
+
+void AddRecurring() {
+	return;
+}
+
+void WalletManagement() {
+	return;
+}
+
+void Statistics() {
+	return;
+}
+
 void Settings() {
 	ClearScreen();
 	cout << "Menu: \n";
@@ -95,11 +111,22 @@ void Dashboard() {
 		getline(cin, s);
 	}
 	int choice = int(s[0]) - int('0');
-	
-	if (choice == 5) {
+	if(choice == 1) {
+		AddTransaction();
+	}
+	else if(choice == 2) {
+		AddRecurring();
+	}
+	else if(choice == 3) {
+		WalletManagement();
+	}
+	else if(choice == 4) {
+		Statistics();
+	}
+	else if (choice == 5) {
 		Settings();
-	} else
-	if (choice == 6) {
+	} 
+	else if (choice == 6) {
 		ClearScreen();
 		cout << "See you later...\n";
 	}

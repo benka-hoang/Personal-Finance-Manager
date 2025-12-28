@@ -11,6 +11,11 @@ void GachNgang();
 void ClearScreen();
 bool CheckOption(string &s, int l, int r);
 
-void Settings();
 void Dashboard();
 void UI();
+
+void AddTransaction();
+void AddRecurring();
+void WalletManagement();
+void Statistics();
+void Settings();
