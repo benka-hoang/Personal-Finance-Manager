@@ -15,7 +15,7 @@ void ClearScreen() {
 	return;
 }
 
-const string arr[10] = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+const string arr[10] = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }; 
 bool CheckOption(string &s, int l, int r){
 	for (int i = l; i <= r; ++i) if (s == arr[i]) return true;
 	return false;
@@ -445,6 +445,146 @@ void WalletManagement() {
 	return;
 }
 
+void AddSource() {
+	ClearScreen();
+	cout << "List of wallets :\n";
+	for (int i = 0; i < list_wallet.size; ++i) {
+		cout << "      "<< i << ". " << Convert_Char_to_String(list_wallet.wallet[i].name, 20) << "\n";
+	}
+	cout << "Name wallet : "; string s; cin >> s;
+	int id_wallet = -1;
+	char str[20]; Convert_String_to_Char(str, s, 20);
+	for (int i = 0; i < list_wallet.size; ++i) if (CompareEqual(str, list_wallet.wallet[i].name, 20)) {
+		id_wallet = i;
+		break;
+	}
+	cout << "Name source : "; string name; cin >> name;
+	list_wallet.wallet[id_wallet].Add_Source(name);
+	cout << "Add source successfully!\n";
+	Wait();
+	CategoryManagement();
+	return;
+}
+
+void AddCategory() {
+	ClearScreen();
+	cout << "List of wallets :\n";
+	for (int i = 0; i < list_wallet.size; ++i) {
+		cout << "      " << i << ". " << Convert_Char_to_String(list_wallet.wallet[i].name, 20) << "\n";
+	}
+	cout << "Name wallet : "; string s; cin >> s;
+	int id_wallet = -1;
+	char str[20]; Convert_String_to_Char(str, s, 20);
+	for (int i = 0; i < list_wallet.size; ++i) if (CompareEqual(str, list_wallet.wallet[i].name, 20)) {
+		id_wallet = i;
+		break;
+	}
+	cout << "Name category : "; string name; cin >> name;
+	list_wallet.wallet[id_wallet].Add_Category(name);
+	cout << "Add category successfully!\n";
+	Wait();
+	CategoryManagement();
+	return;
+}
+
+void DeleteSource() {
+	ClearScreen();
+	cout << "List of wallets :\n";
+	for (int i = 0; i < list_wallet.size; ++i) {
+		cout << "      " << i << ". " << Convert_Char_to_String(list_wallet.wallet[i].name, 20) << "\n";
+	}
+	cout << "Name wallet : "; string s; cin >> s;
+	int id_wallet = -1;
+	char str[20]; Convert_String_to_Char(str, s, 20);
+	for (int i = 0; i < list_wallet.size; ++i) if (CompareEqual(str, list_wallet.wallet[i].name, 20)) {
+		id_wallet = i;
+		break;
+	}
+	cout << "List of sources :\n";
+	Wallet& wallet = list_wallet.wallet[id_wallet];
+	for (int i = 0; i < wallet.size_source; ++i) {
+		cout << "      " << i << ". " << Convert_Char_to_String(wallet.inc_source[i].name, 20) << "\n";
+	}
+	cout << "Name source : "; string name; cin >> name;
+	list_wallet.wallet[id_wallet].Delete_Income_Source(name);
+	cout << "Delete source successfully!\n";
+	Wait();
+	CategoryManagement();
+	return;
+}
+
+void DeleteCategory() {
+	ClearScreen();
+	cout << "List of wallets :\n";
+	for (int i = 0; i < list_wallet.size; ++i) {
+		cout << "      " << i << ". " << Convert_Char_to_String(list_wallet.wallet[i].name, 20) << "\n";
+	}
+	cout << "Name wallet : "; string s; cin >> s;
+	int id_wallet = -1;
+	char str[20]; Convert_String_to_Char(str, s, 20);
+	for (int i = 0; i < list_wallet.size; ++i) if (CompareEqual(str, list_wallet.wallet[i].name, 20)) {
+		id_wallet = i;
+		break;
+	}
+	cout << "List of categories :\n";
+	Wallet& wallet = list_wallet.wallet[id_wallet];
+	for (int i = 0; i < wallet.size_category; ++i) {
+		cout << "      " << i << ". " << Convert_Char_to_String(wallet.exp_category[i].name, 20) << "\n";
+	}
+	cout << "Name source : "; string name; cin >> name;
+	list_wallet.wallet[id_wallet].Delete_Expense_Category(name);
+	cout << "Delete category successfully!\n";
+	Wait();
+	CategoryManagement();
+	return;
+}
+
+void EditSource() {
+	return;
+}
+
+void EditCategory() {
+	
+	return;
+}
+
+void CategoryManagement() {
+	ClearScreen();
+	cout << "===========Category Management==========="; cout << "\n";
+	cout << "Menu: \n";
+	cout << "      " << "0. Back\n";
+	cout << "      " << "1. Add Source\n";
+	cout << "      " << "2. Add Category\n";
+	cout << "      " << "3. Delete Source\n";
+	cout << "      " << "4. Delete Category\n";
+	cout << "      " << "5. Edit Source\n";
+	cout << "      " << "6. Edit Category\n";
+	cout << "Your option : ";
+	int choice; cin >> choice;
+	if (choice == 0) {
+		Dashboard();
+	} 
+	else if (choice == 1) {
+		AddSource();
+	} 
+	else if (choice == 2) {
+		AddCategory();
+	} 
+	else if (choice == 3) {
+		DeleteSource();
+	} 
+	else if (choice == 4) {
+		DeleteCategory();
+	} 
+	else if (choice == 5) {
+		EditSource();
+	} 
+	else if (choice == 6) {
+		EditCategory();
+	}
+	return;
+}
+
 void Statistics() {
 	ClearScreen();
 	cout<<"===============Statistics==============="<<endl;
@@ -809,9 +949,10 @@ void Dashboard() {
 	cout << "Menu: \n";
 	cout << "      " << "1. Add Transaction \n";
 	cout << "      " << "2. Wallet Management \n";
-	cout << "      " << "3. Statistics \n";
-	cout << "      " << "4. Settings \n";
-	cout << "      " << "5. Exit \n";
+	cout << "      " << "3. Category Management \n";
+	cout << "      " << "4. Statistics \n";
+	cout << "      " << "5. Settings \n";
+	cout << "      " << "6. Exit \n";
 	
 	cout << "Your option: ";
 	string s; getline(cin, s);
@@ -825,14 +966,17 @@ void Dashboard() {
 	}
 	else if(choice == 2) {
 		WalletManagement();
-	}
-	else if(choice == 3) {
+	} 
+	else if (choice == 3) {
+		CategoryManagement();
+	} 
+	else if(choice == 4) {
 		Statistics();
 	}
-	else if (choice == 4) {
+	else if (choice == 5) {
 		Settings();
 	} 
-	else if (choice == 5) {
+	else if (choice == 6) {
 		ClearScreen();
 		cout << "See you later...\n";
 	}

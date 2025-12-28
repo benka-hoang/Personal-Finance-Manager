@@ -18,5 +18,6 @@ void UI();
 void AddTransaction();
 void AddRecurring();
 void WalletManagement();
+void CategoryManagement();
 void Statistics();
 void Settings();

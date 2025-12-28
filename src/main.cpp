@@ -54,13 +54,13 @@ void CreateSampleData() {
 
 	// Add Income
 	// Use w1.inc_source[x] where x matches the added source index
-	w1.Add_Income({ 10, 1, 2024 }, 20000000, w1.inc_source[1], "January Salary");
-	w1.Add_Income({ 15, 1, 2024 }, 5000000, w1.inc_source[2], "Tet Bonus");
+	w1.Add_Income({ 10, 1, 2025 }, 20000000, w1.inc_source[1], "January Salary");
+	w1.Add_Income({ 15, 1, 2025 }, 5000000, w1.inc_source[2], "Tet Bonus");
 
 	// Add Expense
-	w1.Add_Expense({ 11, 1, 2024 }, 50000, w1.exp_category[1], "Lunch");
-	w1.Add_Expense({ 12, 1, 2024 }, 30000, w1.exp_category[2], "Bus ticket");
-	w1.Add_Expense({ 14, 1, 2024 }, 200000, w1.exp_category[3], "Movie tickets");
+	w1.Add_Expense({ 11, 1, 2025 }, 50000, w1.exp_category[1], "Lunch");
+	w1.Add_Expense({ 12, 1, 2025 }, 30000, w1.exp_category[2], "Bus ticket");
+	w1.Add_Expense({ 14, 1, 2025 }, 200000, w1.exp_category[3], "Movie tickets");
 
 
 	// ---------------------------------------------------------
@@ -102,8 +102,8 @@ void CreateSampleData() {
 	cout << w3.size_category << "\n";
 
 	// Income
-	w3.Add_Income({ 5, 4, 2024 }, 3000000, w3.inc_source[1], "Project Payment");
-	w3.Add_Income({ 10, 4, 2024 }, 500000, w3.inc_source[2], "Sold old books");
+	w3.Add_Income({ 5, 4, 2025 }, 3000000, w3.inc_source[1], "Project Payment");
+	w3.Add_Income({ 10, 4, 2025 }, 500000, w3.inc_source[2], "Sold old books");
 
 	// Expense
 	w3.Add_Expense({ 20, 4, 2024 }, 1500000, w3.exp_category[1], "Book Flight to Da Nang");
