@@ -220,3 +220,17 @@ bool CheckDate(Date d)
 	if(d.day<0||!Belong_to_Month(d)) return false;
 	return true;
 }
+
+bool CheckDateFormat(string s){
+	int cnt = 0;
+	for (int i = 0; i < s.size(); ++i) if (s[i] == '/')
+		++cnt;
+	if (cnt != 2) return false;
+	for (int i = 0; i < s.size(); ++i) if (!('0' <= s[i] && s[i] <= '9' || s[i] == '/'))
+		return false;
+	if (s[0] == '/' || s[int(s.size()) - 1] == '/')
+		return false;
+	for (int i = 0; i < int(s.size()) - 1; ++i) if (s[i] == '/' && s[i + 1] == '/')
+		return false;
+	return true;
+}

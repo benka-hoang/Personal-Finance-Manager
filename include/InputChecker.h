@@ -14,3 +14,4 @@ struct IncomeInfo {
 };
 
 IncomeInfo CheckIncome(string wallet, string amount, string date, string source, string des);
+void Output_Notification_Income(int case_in);

@@ -10,6 +10,7 @@ using namespace std;
 void GachNgang();
 void ClearScreen();
 bool CheckOption(string &s, int l, int r);
+void Wait();
 
 void Dashboard();
 void UI();
