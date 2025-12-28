@@ -3,6 +3,7 @@
 #include<iomanip>
 #include <chrono>
 #include <thread>
+#include<cstdlib>
 
 using namespace std;
 
@@ -13,5 +14,3 @@ bool CheckOption(string &s, int l, int r);
 void Settings();
 void Dashboard();
 void UI();
-
-
