@@ -96,7 +96,7 @@ void Statistics() {
 	if(choice == 1) {
 		ClearScreen();
 		cout<<"===============Statistics==============="<<endl;
-		cout<<"Display income, expense and balance from Date A to Date B"<<endl;
+		cout<<"Display income, expense and balance from Date A to Date B."<<endl;
 		cout<<"Type in date A (DD/MM/YYYY): "<<endl;
 		string s;
 		getline(cin, s);
@@ -159,10 +159,223 @@ void Statistics() {
 		}
 	}
 	else if (choice == 2) {
+		ClearScreen();
+		cout<<"===============Statistics==============="<<endl;
+		cout<<"Filter income and expense for wallets."<<endl;
+		cout<<"Type in date A (DD/MM/YYYY): "<<endl;
+		string s;
+		getline(cin, s);
+		Date d1=ConvertStringToDate(s);
+		while(!CheckDate(d1))
+		{
+			cin.ignore();
+			getline(cin, s);
+			d1=ConvertStringToDate(s);
+		}
+		Date d2;
+		cout<<"Type in date B: "<<endl;
+		cout<<"Do you want to use today's date? (y/n) ";
+		char c; cin>>c;
+		while(c!='y'&&c!='n') 
+		{
+			cout<<"Invalid choice! Please type again : ";
+			cin>>c;
+		}
+		if(c=='y')
+		{
+			d2=Today();
+		}
+		else if(c=='n')
+		{
+			cout<<"Type in date B (DD/MM/YYYY): "<<endl;
+			string s2;
+			cin.ignore();
+			getline(cin, s2);
+			d2=ConvertStringToDate(s2);
+			while(!CheckDate(d2))
+			{
+				cin.ignore();
+				getline(cin, s2);
+				d2=ConvertStringToDate(s2);
+			}
+		}
+		cout<<"From "<<d1.day<<"/"<<d1.month<<"/"<<d1.year<<" to "<<d2.day<<"/"<<d2.month<<"/"<<d2.year<<endl;
+		cout<<"Time-based Wallets' Income"<<endl;
+		for(int i=0;i<list_wallet.size;++i)
+		{
+			cout<<"      "<<i<<". "<<Convert_Char_to_String(list_wallet.wallet[i].name, 20)<<": "<<list_wallet.wallet[i].Total_Income(d1, d2)<<endl;
+		}
+		cout<<endl;
+		cout<<"Time-base Wallets' Expense"<<endl;
+		for(int i=0;i<list_wallet.size;++i)
+		{
+			cout<<"      "<<i<<". "<<Convert_Char_to_String(list_wallet.wallet[i].name, 20)<<": "<<list_wallet.wallet[i].Total_Expense(d1, d2)<<endl;
+		}
+		cout<<endl;
+		cout<<"Current month Wallets' Income"<<endl;
+		for(int i=0; i < list_wallet.size; ++i)
+		{
+			cout<<"      "<<i<<". "<<Convert_Char_to_String(list_wallet.wallet[i].name, 20)<<": "<<list_wallet.wallet[i].Total_Income_Current_Month()<<endl;
+		}
+		cout<<endl;
+		cout<<"Current month Wallets' Expense"<<endl;
+		for(int i=0;i<list_wallet.size;++i)
+		{
+			cout<<"      "<<i<<". "<<Convert_Char_to_String(list_wallet.wallet[i].name, 20)<<": "<<list_wallet.wallet[i].Total_Expense_Current_Month()<<endl;
+		}
+		cout<<endl;
+		if (c == 'y') {
+            cin.ignore();
+        }
+        cout << "Choose 0 to back! "; 
+        string s_choice;
+        getline(cin, s_choice);
 
+        // Check nhập đúng số 0
+        while(!CheckOption(s_choice, 0, 0)) {
+            cout << "Invalid option! Please type again (0 to back): ";
+            getline(cin, s_choice);
+        }
+
+        int back_choice = int(s_choice[0]) - int('0');
+        
+        if(back_choice == 0) {
+            Statistics(); // Gọi lại hàm để hiện Menu
+            return;
+		}
 	}
 	else if (choice == 3) {
+		ClearScreen();
+		cout<<"===============Statistics==============="<<endl;
+		cout<<"Annual overview's menu"<<endl;
+		cout<<"      " << "0. Back\n";
+		cout<<"      " << "1. Net balance changes\n";
+		cout<<"      " << "2. Income sources\n";
+		cout<<"      " << "3. Expense categories\n";
+		cout << "Your option: ";
+		string s_choice;
+		getline(cin, s_choice);
+		while(!CheckOption(s_choice, 0, 3))
+		{
+			cout<<"Invalid choice! Please type again : ";
+			getline(cin, s_choice);
+		}
+		int Choice = int(s_choice[0]-'0');
+		if(Choice==0)
+		{
+			ClearScreen();
+			Statistics();
+		}
+		else if(Choice==1)
+		{
+			cout<<"===========Net balance changes===========";
+			cout<<"How many years do you want to select? ";
+			int size; cin>>size;
+			int* year = new int [size];
+			cout<<"Select years you want to examine"<<endl;
+			for(int i = 0; i<size;++i) cin>>year[i];
+			int income=0;
+			for(int i=0;i<list_wallet.size;++i) income+=list_wallet.wallet[i].Annual_Income(size, year);
+			int expense=0;
+			for(int i=0;i<list_wallet.size;++i) expense+=list_wallet.wallet[i].Annual_Expense(size, year);
+			int balance=income-expense;
+			cout<<"For the selected years,"<<endl;
+			cout << "      " <<"Total income: "<<income<<endl;
+			cout << "      " <<"Total expense: "<<expense<<endl;
+			cout << "      " <<"Net balance: "<<balance<<endl;
+			delete[] year;
+			cout << "Choose 0 to back to Statistics Menu! "; 
+			string s_choice;
+			cin.ignore();
+			getline(cin, s_choice);
 
+			// Check nhập đúng số 0
+			while(!CheckOption(s_choice, 0, 0)) {
+				cout << "Invalid option! Please type again (0 to back): ";
+				getline(cin, s_choice);
+			}
+
+			int back_choice = int(s_choice[0]) - int('0');
+			
+			if(back_choice == 0) {
+				Statistics();
+				return;
+			}
+		}
+		else if(Choice==2)
+		{
+			cout<<"=========Annual Income Sources=========="<<endl;
+			cout<<"How many years do you want to select? ";
+			int size; cin>>size;
+			int* year = new int [size];
+			cout<<"Select years you want to examine"<<endl;
+			for(int i = 0; i<size;++i) cin>>year[i];
+			int income=0;
+			for(int i=0;i<list_wallet.size;++i) income+=list_wallet.wallet[i].Annual_Income(size, year);
+			cout<<"Total income for the selected years: "<<income<<endl;
+			for(int i=0;i<list_wallet.size;++i)
+			{
+				cout<<"Wallet ["<<i<<"]. "<<Convert_Char_to_String(list_wallet.wallet[i].name, 20)<<endl;
+				for(int j=0;j<list_wallet.wallet[i].size_source;++j)
+				{
+					cout<<"      "<<j<<". "<<Convert_Char_to_String(list_wallet.wallet[i].inc_source[j].name, 20)<<": "<<list_wallet.wallet[i].Annual_Income_Source(size, year)[j]<<endl;
+				}
+			}
+			cout << "Choose 0 to back to Statistics Menu! "; 
+			string s_choice;
+			cin.ignore();
+			getline(cin, s_choice);
+
+			// Check nhập đúng số 0
+			while(!CheckOption(s_choice, 0, 0)) {
+				cout << "Invalid option! Please type again (0 to back): ";
+				getline(cin, s_choice);
+			}
+
+			int back_choice = int(s_choice[0]) - int('0');
+			
+			if(back_choice == 0) {
+				Statistics();
+				return;
+			}
+		}
+		else if(Choice==3)
+		{
+			cout<<"=========Annual Expense Sources=========="<<endl;
+			cout<<"How many years do you want to select? ";
+			int size; cin>>size;
+			int* year = new int [size];
+			cout<<"Select years you want to examine"<<endl;
+			for(int i = 0; i<size;++i) cin>>year[i];
+			int expense=0;
+			for(int i=0;i<list_wallet.size;++i) expense+=list_wallet.wallet[i].Annual_Expense(size, year);
+			cout<<"Total expense for the selected years: "<<expense<<endl;
+			for(int i=0;i<list_wallet.size;++i)
+			{
+				cout<<"Wallet ["<<i<<"]. "<<Convert_Char_to_String(list_wallet.wallet[i].name, 20)<<endl;
+				for(int j=0;j<list_wallet.wallet[i].size_category;++j)
+				{
+					cout<<"      "<<j<<". "<<Convert_Char_to_String(list_wallet.wallet[i].exp_category[j].name, 20)<<": "<<list_wallet.wallet[i].Annual_Expense_Category(size, year)[j]<<endl;
+				}
+			}
+			cout << "Choose 0 to back to Statistics Menu! "; 
+			string s_choice;
+			cin.ignore();
+			getline(cin, s_choice);
+
+			// Check nhập đúng số 0
+			while(!CheckOption(s_choice, 0, 0)) {
+				cout << "Invalid option! Please type again (0 to back): ";
+				getline(cin, s_choice);
+			}
+
+			int back_choice = int(s_choice[0]) - int('0');
+			
+			if(back_choice == 0) {
+				Statistics();
+				return;
+			}
+		}
 	}
 	return;
 }
