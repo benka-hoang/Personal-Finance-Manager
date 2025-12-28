@@ -11,6 +11,8 @@
 // 6: (Source) Wrong id
 // 7: (Source) Wrong name
 // 8: des too long
+// 9: Wrong date format
+// 10: Invalid date
 const int max_amount = 100000000;
 IncomeInfo CheckIncome(string wallet, string amount, string date, string source, string des)
 {

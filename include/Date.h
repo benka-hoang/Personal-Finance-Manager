@@ -67,3 +67,5 @@ bool Belong_to_Month(Date d);
 Date ConvertStringToDate(string s);
 
 bool CheckDate(Date d);
+
+bool CheckDateFormat(string s);
