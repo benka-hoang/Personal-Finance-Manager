@@ -172,7 +172,6 @@ void ListWallet::LoadData(){
 		fin.read((char*)w.inc_source, sizeof(Category) * w.max_size_source);
 		fin.read((char*)w.exp_category, sizeof(Category) * w.max_size_category);
 	}
-	cout << "Load data successfully!" << "\n";
 	fin.close();
 	return;
 }

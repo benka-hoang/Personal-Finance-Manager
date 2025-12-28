@@ -7,9 +7,10 @@
 #include"../include/ListWallet.h"
 #include"../include/Recurring.h"
 #include"../include/UserInterface.h"
+#include"cstdlib"
 
 void ClearScreen() {
-	cout << "\033[2J\033[1;1H";
+	system("cls");
 	return;
 }
 

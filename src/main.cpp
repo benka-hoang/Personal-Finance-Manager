@@ -8,7 +8,6 @@
 #include"../include/ListWallet.h"
 #include"../include/Recurring.h"
 #include"../include/UserInterface.h"
-#include<direct.h>
 
 using namespace std;
 
@@ -16,9 +15,7 @@ void CreateSampleData();
 void DefaultProgram();
 
 int main() {
-	char cwd[1024];
-	_getcwd(cwd, sizeof(cwd));
-	cout << "Current working directory: " << cwd << endl;
+	UI();
 }
 
 void DefaultProgram() {
