@@ -21,6 +21,14 @@ bool CheckOption(string &s, int l, int r){
 	return false;
 }
 
+void Wait(){
+	this_thread::sleep_for(chrono::milliseconds(500)); cout << ".";
+	this_thread::sleep_for(chrono::milliseconds(500)); cout << ".";
+	this_thread::sleep_for(chrono::milliseconds(500)); cout << ".";
+	this_thread::sleep_for(chrono::milliseconds(500));
+	return;
+}
+
 void GachNgang() {
 	cout << setfill('=');
 	cout << setw(40) << "=" << "\n";
@@ -34,6 +42,60 @@ void GachTransaction() {
 	cout << "\n";
 	return;
 }
+
+void AddIncome() {
+	ClearScreen();
+	GachTransaction();
+	string wallet, amount, date, source, des;
+	cout << "Wallet : "; getline(cin, wallet);
+	cout << "Date : "; getline(cin, date);
+	cout << "Amount : "; getline(cin, amount);
+	cout << "Source : "; getline(cin, source);
+	cout << "Description : "; getline(cin, des);
+	GachNgang();
+	IncomeInfo info = CheckIncome(wallet, amount, date, source, des);
+	int case_in = info.case_in;
+	if (case_in == 0) {
+		cout << "Your information is correct!\n";
+		cout << "Please re - check:\n";
+		info.inc.Display();
+		GachNgang();
+		cout << "Confirm (y/n) : "; string s; getline(cin, s);
+		while (!(s.size() == 1 && (s[0] == 'y' || s[0] == 'n'))) {
+			cout << "Invalid option! Please type again (y/n): ";
+			string s; getline(cin, s);
+		}
+		if (s[0] == 'y') {
+			cout << "Income transaction added successfully!";
+			Income& inc = info.inc;
+			list_wallet.wallet[info.id_wallet].Add_Income(inc.d, inc.amount, inc.source, inc.des);
+			Wait();
+			AddTransaction();
+		}
+		else {
+			cout << "Income transaction canceled!";
+			Wait();
+			AddTransaction();
+		}
+	}
+	else {
+		Output_Notification_Income(case_in);
+		cout << "Re-input (y/n) : ";
+		string s; getline(cin, s);
+		while (!(s.size() == 1 && (s[0] == 'y' || s[0] == 'n'))) {
+			cout << "Invalid option! Please type again (y/n): ";
+			string s; getline(cin, s);
+		}
+		if (s[0] == 'y') {
+			AddIncome();
+		}
+		else {
+			AddTransaction();
+		}
+	}
+	return;
+}
+
 void AddTransaction() {
 	ClearScreen();
 	GachTransaction();
@@ -48,17 +110,12 @@ void AddTransaction() {
 		getline(cin, s);
 	}
 	int choice = int(s[0]) - int('0');
-	if (choice == 1) {
+	if (choice == 0) {
 		ClearScreen();
-		GachTransaction();
-		string wallet, amount, date, source, des;
-		cout << "Wallet : "; getline(cin, wallet);
-		cout << "Date : "; getline(cin, date);
-		cout << "Amount : "; getline(cin, amount);
-		cout << "Source : "; getline(cin, source);
-		cout << "Description : "; getline(cin, des);
-		IncomeInfo info = CheckIncome(wallet, amount, date, source, des);
-
+		Dashboard();
+	} 
+	else if (choice == 1) {
+		AddIncome();
 	}
 	else if (choice == 2) {
 

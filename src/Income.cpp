@@ -13,11 +13,11 @@ Income Info_to_Income(Date &d, int &amount, Category &source, string &des) {
 }
 
 void Income::Display(){
-	cout << "Income Information : ---------\n";
+	cout << "Income Information :\n";
 	cout << "     Date : "; d.OutputConsole();
 	cout << "     Amount : "; cout << amount << "\n";
 	cout << "     Source : "; source.Display();
-	cout << "     Descrip : "; cout << Convert_Char_to_String(des, 50) << "\n";
+	cout << "     Description : "; cout << Convert_Char_to_String(des, 50) << "\n";
 	return;
 }
 
